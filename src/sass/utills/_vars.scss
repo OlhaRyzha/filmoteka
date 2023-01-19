@@ -1,17 +1,17 @@
 :root {
   /* Fonts */
-  --main-font: 'Roboto', sans-serif;
+  --main-font: "Roboto", sans-serif;
 
   /* Tetx colors */
   --main-txt-cl: #000;
-  --accent-txt-cl:#FF6B08;
+  --accent-txt-cl: #ff6b08;
   --light-txt-color: #fff;
-  --error-txt-color: #FF001B;
-
+  --error-txt-color: #ff001b;
+  --footer-txt-color: #545454;
   /* Bg colors */
-  --accent-bg-cl: #E5E5E5;
-
-   /* Btns */
- --btn-bg-color:#FF6B01;
- --btn-dis-bg-color: transparent;
+  --accent-bg-cl: #e5e5e5;
+  --footer-bg-color: #f7f7f7;
+  /* Btns */
+  --btn-bg-color: #ff6b01;
+  --btn-dis-bg-color: transparent;
 }
