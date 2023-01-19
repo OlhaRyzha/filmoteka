@@ -62,3 +62,55 @@
         }
     }
 }
+
+.team {
+    color: var(--footer-txt-color);
+    background-color: var(--second-white-color);
+    padding-top: 60px;
+    padding-bottom: 60px;
+
+    @media screen and (min-width: 1200px) {
+        padding-top: 94px;
+        padding-bottom: 94px;
+    }
+
+    &__title {
+        font-size: 28px;
+        line-height: 1.17;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        margin-bottom: 10px;
+        text-align: center;
+        color: var(--main-txt-cl);
+
+        @media screen and (min-width: 1200px) {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+    }
+
+    &__desctiption {
+        font-size: 20px;
+        line-height: 1.17;
+        font-weight: 400;
+        letter-spacing: 0.03em;
+        margin-bottom: 30px;
+        text-align: center;
+        color: var(--footer-txt-color);
+
+        @media screen and (min-width: 1200px) {
+            font-size: 22px;
+            margin-bottom: 50px;
+        }
+    }
+
+    &__list {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        text-align: center;
+        flex-wrap: wrap;
+        gap: 30px;
+        padding: 0 15px;
+    }
+}
