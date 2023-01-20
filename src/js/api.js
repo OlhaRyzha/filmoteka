@@ -7,6 +7,7 @@ export class ThemoviedbAPI {
   constructor() {
     axios.defaults.baseURL = ThemoviedbAPI.BASE_URL;
     this.query = null;
+    this.fetchGenresMovieList();
     // this.page = 1;
     // this.per_page = 40;
   }
@@ -39,9 +40,10 @@ export class ThemoviedbAPI {
           language: 'en-US',
         },
       });
-
-      const { genres } = response;
-      console.log(genres);
+      
+      const { genres } = response.data;
+      // console.log(genres);
+      this.genres = genres;
 
       return genres;
     } catch (err) {
@@ -51,7 +53,12 @@ export class ThemoviedbAPI {
 
   async fetchTrendMovies() {
     try {
-      const { data } = await axios.get(`/trending/movie/day?${ThemoviedbAPI.API_KEY}`);
+      const { data } = await axios.get('/trending/movie/day', {
+        params: {
+          api_key: ThemoviedbAPI.API_KEY,
+        }
+      });
+      
       return data;
     } catch (err) {
       console.log(err);
