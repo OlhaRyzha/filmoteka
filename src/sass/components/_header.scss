@@ -191,6 +191,7 @@
 }
 
 .logo__name {
+  text-transform: capitalize;
   @media screen and (max-width: 768px) {
     display: none;
   }
@@ -218,7 +219,7 @@
   justify-content: space-between;
   //baseline
   align-items: center;
-  margin-bottom: 40px;
+  margin-bottom: 54px;
 
   font-family: var(--main-font);
   font-weight: 500;
@@ -227,9 +228,16 @@
   text-transform: uppercase;
   background-color: transparent;
   color: var(--light-txt-color);
+
+  @media screen and (min-width: 768px) {
+    margin-bottom: 40px;
+  }
 }
 
 .side-nav__link {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.17;
   border: none;
   text-transform: uppercase;
   background-color: transparent;
@@ -271,4 +279,43 @@
   background-color: var(--current-link);
 }
 
+//library header
 
+.library-header {
+  margin-bottom: 60px;
+}
+
+.storage-list {
+    color: var(--light-txt-color);
+    border-color: var(--accent-txt-cl);
+}
+
+.storage__btn {
+
+  display: block;
+
+  padding-top: 14px;
+  padding-bottom: 12px;
+
+  min-width: 130px;
+
+  @media screen and (min-width: 768px) {
+    min-width: 136px;
+  }
+
+  text-align: center;
+
+  font-family: var(--main-font);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33;
+  text-transform: uppercase;
+
+  color: var(--light-txt-color);
+
+  cursor: pointer;
+
+  border: 1px solid var(--light-txt-color);
+  border-radius: 5px;
+
+}
