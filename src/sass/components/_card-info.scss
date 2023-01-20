@@ -39,27 +39,36 @@
   }
 
   @media screen and (min-width: 768px) {
-    width: 568px;
+    width: 704px;
+    padding-top: 40px;
+    padding-left: 36px;
+    padding-right: 72px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    width: 806px;
+    padding-left: 12px;
+    padding-right: 12px;
   }
 
   @media screen and (max-height: 1000px) and (max-width: 768px) {
-    top: 55%;
+    top: 53%;
   }
 
   @media screen and (max-height: 900px) and (max-width: 768px) {
-    top: 65%;
+    top: 63%;
   }
 
   @media screen and (max-height: 765px) and (max-width: 768px) {
-    top: 75%;
+    top: 73%;
   }
 
   @media screen and (max-height: 665px) and (max-width: 768px) {
-    top: 85%;
+    top: 80%;
   }
 
   @media screen and (max-height: 580px) and (max-width: 768px) {
-    top: 95%;
+    top: 90%;
   }
 }
 
@@ -70,17 +79,47 @@
   background-color: transparent;
   border: none;
   outline: none;
+  cursor: pointer;
 }
 
 .modal-card__close-btn-img {
+  width: 30px;
+  height: 30px;
+}
+
+.modal-card__content {
   @media screen and (min-width: 768px) {
-    width: 30px;
-    height: 30px;
+    display: flex;
+    gap: 68px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    gap: 16px;
   }
 }
 
 .modal-card__poster {
+  border-radius: 5px;
+  min-width: 240px;
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+
+  @media screen and (min-width: 768px) {
+    min-width: 264px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    display: inline-flex;
+    justify-content: center;
+    min-width: 375px;
+    height: 478px;
+
+    & img {
+      max-height: 100%;
+      object-fit: cover;
+    }
+  }
 }
 
 .modal-card__title {
@@ -89,6 +128,11 @@
   line-height: 23px;
 
   color: #000000;
+
+  @media screen and (min-width: 1024px) {
+    font-size: 30px;
+    line-height: 35px;
+  }
 }
 
 .modal-card__info {
@@ -155,6 +199,11 @@
   margin-top: 20px;
   display: flex;
   justify-content: space-between;
+
+  @media screen and (min-width: 1024px) {
+    justify-content: flex-start;
+    gap: 15px;
+  }
 }
 
 .modal-card__watch-btn,
@@ -167,18 +216,36 @@
   line-height: 16px;
   padding-left: 13px;
   padding-right: 13px;
+  cursor: pointer;
+  border: 1px solid #000000;
+  background-color: #ffffff;
+  color: #000000;
 
   text-transform: uppercase;
-}
 
-.modal-card__watch-btn {
-  background: #ff6b01;
-  border: none;
-  color: #ffffff;
-}
+  &:hover,
+  :focus {
+    background-color: #ff6b01;
+    border: none;
+    color: #ffffff;
 
-.modal-card__queue-btn {
-  border: 1px solid #000000;
-  background: #ffffff;
-  color: #000000;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &:active {
+    background-color: #bb4f03;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 125px;
+    padding-left: 9px;
+    padding-right: 9px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    width: 136px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 }
