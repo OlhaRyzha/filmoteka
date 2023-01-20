@@ -1,0 +1,185 @@
+.footer {
+    background-color: var(--footer-bg-color);
+
+    &__container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        scroll-behavior: smooth;
+
+        @media screen and (min-width: 1280px) {
+            padding-top: 23px;
+            padding-bottom: 35px;
+        }
+    }
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        padding: 0 auto;
+
+        @media screen and (min-width: 768px) {
+            flex-direction: row;
+            gap: 0;
+        }
+    }
+
+    &__item {
+        font-family: "Roboto", sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 16px;
+        color: var(--footer-txt-color);
+
+        @media screen and (min-width: 768px) {
+            font-size: 16px;
+            line-height: 19px;
+        }
+    }
+
+    &__icon {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    &__btn {
+        background-color: transparent;
+        border: none;
+        font-family: "Roboto", sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 16px;
+        color: var(--footer-txt-color);
+        text-decoration: underline 1px;
+
+        @media screen and (min-width: 768px) {
+            font-size: 16px;
+            line-height: 19px;
+        }
+    }
+}
+
+.is-hidden {
+    display: none;
+}
+
+.team {
+    color: var(--footer-txt-color);
+    padding-top: 60px;
+    padding-bottom: 60px;
+
+    @media screen and (min-width: 1200px) {
+        padding-top: 94px;
+        padding-bottom: 94px;
+    }
+
+    &__title {
+        font-family: "Roboto", sans-serif;
+        font-size: 28px;
+        line-height: 1.17;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        margin-bottom: 15px;
+        margin-top: 15px;
+        text-align: center;
+        color: var(--accent-bg-cl);
+
+        @media screen and (min-width: 768px) {
+            font-size: 36px;
+        }
+    }
+
+    &__desctiption {
+        font-family: "Roboto", sans-serif;
+        font-size: 18px;
+        line-height: 1;
+        font-weight: 400;
+        letter-spacing: 0.03em;
+        margin-bottom: 30px;
+        text-align: center;
+        color: var(--footer-txt-color);
+
+        @media screen and (min-width: 1200px) {
+            font-size: 22px;
+            margin-bottom: 50px;
+        }
+    }
+
+    &__member {
+        color: var(--light-txt-color);
+        font-family: "Roboto", sans-serif;
+        margin-bottom: 10px;
+    }
+
+    &__list {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        text-align: center;
+        flex-wrap: wrap;
+        gap: 30px;
+        padding: 0 15px;
+
+        @media screen and (min-width: 768px) {
+            gap: 50px;
+        }
+    }
+
+    &__img {
+        min-width: 85px;
+        height: 130px;
+        margin: 0 auto;
+        border-radius: 50%;
+        margin-bottom: 30px;
+    }
+}
+
+.backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: grey;
+    opacity: 0.8;
+}
+
+.modal {
+    z-index: 10;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px;
+    min-width: 250px;
+    background: var(--main-txt-cl);
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 7px;
+    margin-bottom: 40px;
+
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+
+    &__close {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 15px;
+        right: 15px;
+        background-color: transparent;
+        border: none;
+        fill: var(--yelow-bg-color);
+        padding: 10px;
+        cursor: pointer;
+        transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
+        &:hover {
+            fill: var(--blu-bg-color);
+        }
+    }
+}
