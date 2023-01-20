@@ -48,4 +48,14 @@ export class ThemoviedbAPI {
       console.log(err);
     }
   }
+
+  async fetchTrendMovies() {
+    try {
+      const { data } = await axios.get(`/trending/movie/day?${ThemoviedbAPI.API_KEY}`);
+      return data;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
 }
