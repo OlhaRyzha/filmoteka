@@ -13,7 +13,6 @@ body {
   background-color: var(--accent-bg-cl);
 }
 
-
 ul {
   list-style-type: none;
 }
@@ -45,14 +44,13 @@ img {
   }
 }
 
-.section { 
-  padding: 40px 0; 
+.section {
+  padding: 40px 0;
 
-@media screen and (min-width: 768px) { 
-  max-width: 768px; 
-  padding: 60px 0; 
-} 
-} 
+  @media screen and (min-width: 768px) {
+    padding: 60px 0;
+  }
+}
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -77,10 +75,8 @@ img {
   align-items: center;
   justify-content: center;
   text-transform: uppercase;
-&:disabled{
-  background-color: var(--btn-dis-bg-color);
-  border: 1px solid #FFFFFF;
+  &:disabled {
+    background-color: var(--btn-dis-bg-color);
+    border: 1px solid #ffffff;
+  }
 }
-}
-
-

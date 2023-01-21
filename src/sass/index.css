@@ -68,7 +68,6 @@ img {
 }
 @media screen and (min-width: 768px) {
   .section {
-    max-width: 768px;
     padding: 60px 0;
   }
 }
@@ -101,7 +100,7 @@ img {
 }
 .btn:disabled {
   background-color: var(--btn-dis-bg-color);
-  border: 1px solid #FFFFFF;
+  border: 1px solid #ffffff;
 }
 
 .film-card__list {
@@ -183,6 +182,9 @@ img {
   }
 }
 .film-card__genre {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
   font-size: 12px;
   line-height: 1.3333333333;
   color: #ff6b08;
@@ -194,13 +196,20 @@ img {
   }
 }
 .film-card__release-date {
+  margin-left: 5px;
+  margin-right: 9px;
   border-left: 1px #ff6b08 solid;
   padding-left: 5px;
 }
+@media screen and (min-width: 768px) {
+  .film-card__release-date {
+    margin-right: 8px;
+  }
+}
 .film-card__rating {
-  display: inline-block;
-  text-align: center;
-  margin-left: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 36px;
   height: 16px;
   font-size: 12px;
@@ -213,6 +222,264 @@ img {
   .film-card__rating {
     width: 40px;
     height: 20px;
+  }
+}
+
+.backdrop-card {
+  position: fixed;
+  overflow-y: scroll;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.2);
+  opacity: 1;
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1), visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.backdrop-card.is-hidden {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modal-card {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  z-index: 50;
+  transform: translate(-50%, -50%) scale(1);
+  width: 280px;
+  background-color: #fcfcfc;
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  position: absolute;
+  padding-top: 48px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 40px;
+}
+.backdrop-card.is-hidden .modal-card {
+  transform: translate(-50%, -50%) scale(0);
+}
+@media screen and (min-width: 768px) {
+  .modal-card {
+    width: 704px;
+    padding-top: 40px;
+    padding-left: 36px;
+    padding-right: 72px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .modal-card {
+    width: 806px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
+@media screen and (max-height: 1000px) and (max-width: 768px) {
+  .modal-card {
+    top: 53%;
+  }
+}
+@media screen and (max-height: 900px) and (max-width: 768px) {
+  .modal-card {
+    top: 63%;
+  }
+}
+@media screen and (max-height: 765px) and (max-width: 768px) {
+  .modal-card {
+    top: 73%;
+  }
+}
+@media screen and (max-height: 665px) and (max-width: 768px) {
+  .modal-card {
+    top: 80%;
+  }
+}
+@media screen and (max-height: 580px) and (max-width: 768px) {
+  .modal-card {
+    top: 90%;
+  }
+}
+
+.modal-card__close-btn {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.modal-card__close-btn-img {
+  width: 30px;
+  height: 30px;
+}
+
+@media screen and (min-width: 768px) {
+  .modal-card__content {
+    display: flex;
+    gap: 68px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .modal-card__content {
+    gap: 16px;
+  }
+}
+
+.modal-card__poster {
+  border-radius: 5px;
+  min-width: 240px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+@media screen and (min-width: 768px) {
+  .modal-card__poster {
+    min-width: 264px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .modal-card__poster {
+    display: inline-flex;
+    justify-content: center;
+    min-width: 375px;
+    height: 478px;
+  }
+  .modal-card__poster img {
+    max-height: 100%;
+    -o-object-fit: cover;
+       object-fit: cover;
+  }
+}
+
+.modal-card__title {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 23px;
+  color: #000000;
+}
+@media screen and (min-width: 1024px) {
+  .modal-card__title {
+    font-size: 30px;
+    line-height: 35px;
+  }
+}
+
+.modal-card__info {
+  display: flex;
+  gap: 40px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  align-items: baseline;
+}
+
+.modal-card__info-title-items,
+.modal-card__info-text-items {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+}
+.modal-card__info-title-items:not(:last-child),
+.modal-card__info-text-items:not(:last-child) {
+  margin-bottom: 8px;
+}
+.modal-card__info-title-items div,
+.modal-card__info-text-items div {
+  background: #ff6b01;
+  border-radius: 5px;
+  width: 36px;
+  height: 16px;
+  margin-right: 2px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.modal-card__info-title-items {
+  color: #8c8c8c;
+}
+
+.modal-card__info-text-items {
+  color: #000000;
+}
+.modal-card__info-text-items:first-child {
+  display: flex;
+}
+
+.modal-card__about-title {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  color: #000000;
+}
+
+.modal-card__about-descr {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 20px;
+  color: #000000;
+}
+
+.modal-card__buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+@media screen and (min-width: 1024px) {
+  .modal-card__buttons {
+    justify-content: flex-start;
+    gap: 15px;
+  }
+}
+
+.modal-card__watch-btn,
+.modal-card__queue-btn {
+  width: 110px;
+  height: 44px;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  padding-left: 13px;
+  padding-right: 13px;
+  cursor: pointer;
+  border: 1px solid #000000;
+  background-color: #ffffff;
+  color: #000000;
+  text-transform: uppercase;
+}
+.modal-card__watch-btn:hover,
+.modal-card__watch-btn :focus,
+.modal-card__queue-btn:hover,
+.modal-card__queue-btn :focus {
+  background-color: #ff6b01;
+  border: none;
+  color: #ffffff;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.modal-card__watch-btn:active,
+.modal-card__queue-btn:active {
+  background-color: #bb4f03;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+@media screen and (min-width: 768px) {
+  .modal-card__watch-btn,
+.modal-card__queue-btn {
+    width: 125px;
+    padding-left: 9px;
+    padding-right: 9px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .modal-card__watch-btn,
+.modal-card__queue-btn {
+    width: 136px;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 }
 

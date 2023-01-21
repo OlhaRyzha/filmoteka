@@ -5,7 +5,7 @@ import { createFilmCards } from './film-card';
 
 const themoviedbAPI = new ThemoviedbAPI();
 
-const galleryEl = document.querySelector('film-card__list');
+const galleryEl = document.querySelector('.film-card__list');
 
 displayMovies(); // Event інпуту !!!
 
