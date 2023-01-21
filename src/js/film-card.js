@@ -6,6 +6,9 @@ export function createFilmCards(films) {
 
   return films
     .map((film, idx) => {
+      const { poster_path, title, release_date, vote_average, genreNames } =
+        film;
+
       return `
         <li class="film-card__item">
             <img src="https://image.tmdb.org/t/p/w300${film.poster_path}" alt="${
