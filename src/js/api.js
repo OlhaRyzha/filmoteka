@@ -7,6 +7,7 @@ export class ThemoviedbAPI {
   constructor() {
     axios.defaults.baseURL = ThemoviedbAPI.BASE_URL;
     this.query = null;
+    this.genres;
     this.fetchGenresMovieList();
     // this.page = 1;
     // this.per_page = 40;

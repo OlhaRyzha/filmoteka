@@ -1,34 +1,31 @@
 'use strict'
 import { ThemoviedbAPI } from "./api";
+import { createFilmCards } from "./film-card";
 
 const themoviedb = new ThemoviedbAPI();
+const galleryEl = document.querySelector('.film-card__list')
 
 themoviedb.fetchTrendMovies()
 .then((data) => {
-    console.log(themoviedb.genres);
-    console.log(data.results);
-        
+//     const gen = (themoviedb.genres).reduce((acum, { id, name }) => ({
+//         ...acum, [id]: name
+//     }), {});
+//     data.results.map(film => {
+//     film.genreNames = film.genre_ids.map(genreId => {
+//         return gen[genreId] || 'Unknown genre';
+//     })
+//  })
+    data.results.forEach(film => {
+        film.genreNames = film.genre_ids
+        .map(filmID => 
+                (themoviedb.genres).find(({ id }) => id === filmID)
+            )
+                .map(({ name }) => name)
+    });
+
+  galleryEl.insertAdjacentHTML("beforeend", createFilmCards(data.results))            
 }).catch((err) => {
     console.log(err);
 })
-    
-
-function createMarkup (arr){
-    return arr.map((el, id, arr) => {
-        return `
-        <div>
-          <img src="${el.title}" alt="${el.title}">
-          <strong>${el.title}</strong>
-          <p>${el.title}</p>
-          <p>${release_date}</p>
-          <p>${el.vote_average}</p>
-        </div>
-        `
-})
-}
-
-function makeGenre(arr) {
-    
-}
 
 
