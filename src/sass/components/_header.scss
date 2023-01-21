@@ -281,41 +281,54 @@
 
 //library header
 
-.library-header {
-  margin-bottom: 60px;
+.header-button {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 62px;
+  @media screen and (min-width: 768px) {
+    margin-bottom: 60px;
+  }
+  @media screen and (min-width: 1280px) {
+    margin-bottom: 60px;
+  }
 }
 
-.storage-list {
-    color: var(--light-txt-color);
-    border-color: var(--accent-txt-cl);
-}
-
-.storage__btn {
-
-  display: block;
-
+.btn-header {
   padding-top: 14px;
   padding-bottom: 12px;
-
-  min-width: 130px;
-
-  @media screen and (min-width: 768px) {
-    min-width: 136px;
-  }
-
+  min-width: 129.53px;
   text-align: center;
-
   font-family: var(--main-font);
   font-weight: 500;
   font-size: 12px;
   line-height: 1.33;
   text-transform: uppercase;
-
+  grid: 19.94px;
+  border: 1px solid #FFFFFF;
+  background-color: var(--btn-dis-bg-color);
   color: var(--light-txt-color);
 
   cursor: pointer;
 
-  border: 1px solid var(--light-txt-color);
-  border-radius: 5px;
 
+  &:not(:last-child) {
+    margin-right: 19.94px;
+  }  
+  @media screen and (min-width: 768px) {
+    min-width: 152px;
+    &:not(:last-child) {
+      margin-right: 32px;
+    }  
+  }
+
+  @media screen and (min-width: 1280px) {
+    min-width: 148px;
+    &:not(:last-child) {
+      margin-right: 16px;
+    }  
+  }
+}
+.is-active-btn {
+  background-color: var(--btn-bg-color);
+  border: none;
 }
