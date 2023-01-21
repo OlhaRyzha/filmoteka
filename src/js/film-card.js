@@ -16,7 +16,7 @@ export function createFilmCards(films) {
                 <p class="film-card__genre">${
                   genreNames.length > 2
                     ? genreNames.slice(0, 2).join(', ') +
-                      `<span data-id="${idx}" class="js-other-films">, Other</span>`
+                      `<span data-id="${idx}" class="js-other-genres">, Other</span>`
                     : genreNames
                 }
                     <span class="film-card__release-date">${
