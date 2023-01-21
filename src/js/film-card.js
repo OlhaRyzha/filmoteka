@@ -17,10 +17,10 @@ export function createFilmCards(films) {
             <div class="film-card__content">
                 <h2 class="film-card__title">${film.title}</h2>
                 <p class="film-card__genre">${
-                  film.genreNames.length > 3
-                    ? film.genreNames.slice(0, 2) +
-                      `<span data-id="${idx}" class="js-other-films">Other</span>`
-                    : film.genreNames
+                  genreNames.length > 2
+                    ? genreNames.slice(0, 2).join(', ') +
+                      `<span data-id="${idx}" class="js-other-genres">, Other</span>`
+                    : genreNames
                 }
                     <span class="film-card__release-date">${(film.release_date).slice(0,4)}</span>
                     <span class="film-card__rating">${(film.vote_average).toFixed(1)}</span>
