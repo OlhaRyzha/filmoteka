@@ -1,5 +1,4 @@
 .film-card {
-  
   &__list {
     display: flex;
     flex-wrap: wrap;
@@ -73,7 +72,7 @@
 
   &__genre {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     flex-wrap: wrap;
     font-size: 12px;
     line-height: calc(16 / 12);
@@ -111,6 +110,10 @@
     @media screen and (min-width: 1280px) {
       width: 40px;
       height: 20px;
+    }
+
+    .film-card__list.main-page & {
+      display: none;
     }
   }
 }
