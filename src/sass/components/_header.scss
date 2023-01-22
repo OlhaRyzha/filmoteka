@@ -1,7 +1,5 @@
-
-
 .header-bg {
-    max-width: 320px;
+    min-width: 320px;
     min-height: 216px;
   
     // background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
@@ -25,12 +23,12 @@
     }
   
     @media screen and (min-width: 768px) {
-      max-width: 768px;
+      min-width: 768px;
       padding-top: 40px;
       // background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
       background-image: url(../images/main-bg_md@1x.jpg);
   
-      @media screen and (max-width: 1280px) and (min-device-pixel-ratio: 2),
+      @media screen and (min-width: 1280px) and (min-device-pixel-ratio: 2),
         screen and (max-width: 1280px) and (min-resolution: 192dpi),
         screen and (max-width: 1280px) and (min-resolution: 2dppx) {
         // background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
@@ -39,7 +37,7 @@
     }
   
     @media screen and (min-width: 1280px) {
-      max-width: 1280px;
+      min-width: 1280px;
       padding-top: 40px;
       //background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
       background-image: url(../images/main-bg_lg@2x.jpg);
@@ -51,6 +49,7 @@
         background-image:   url(../images/main-bg_lg@2x.jpg);
       }
     }
+   
   }
   
   .is-hidden {
@@ -96,7 +95,8 @@
       border-bottom: 1px solid var(--accent-txt-cl);
   
       &::placeholder {
-        color: var(--accent-txt-cl);
+        color: var(--light-txt-color);
+        opacity: 0.6;
       }
     }
   }
@@ -106,7 +106,6 @@
     top: 0;
     right: 0;
    
-  
     @media screen and (min-width: 768px) {
       right: 182px;
     }
@@ -121,11 +120,8 @@
     border: transparent;
   
     color: var(--light-txt-color);
-  
-    .search-field:focus ~ & {
-      color: var(--accent-txt-cl);
-    }
   }
+ 
   .home:focus {
     position: relative;
   
@@ -147,7 +143,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-  }
+
+    cursor: pointer;
+}
+
   .warning {
     width: 320px;
     margin-left: auto;
