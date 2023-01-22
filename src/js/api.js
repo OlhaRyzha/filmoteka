@@ -9,7 +9,7 @@ export class ThemoviedbAPI {
     this.query = null;
     this.genres;
     this.fetchGenresMovieList();
-    // this.page = 1;
+    this.page = 1;
     // this.per_page = 40;
   }
 
@@ -19,7 +19,7 @@ export class ThemoviedbAPI {
         params: {
           api_key: ThemoviedbAPI.API_KEY,
           query: this.query,
-          //   page: this.page,
+            page: this.page
           //   per_page: this.per_page,
         },
       });
@@ -57,6 +57,7 @@ export class ThemoviedbAPI {
       const { data } = await axios.get('/trending/movie/day', {
         params: {
           api_key: ThemoviedbAPI.API_KEY,
+          page: this.page
         }
       });
       

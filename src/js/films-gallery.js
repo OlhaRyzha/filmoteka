@@ -29,6 +29,7 @@ async function onFormSubmit(event) {
   }
 
   try {
+    
     const genres = await themoviedbAPI.fetchGenresMovieList();
 
     const filmsByQuery = await themoviedbAPI.fetchFilmByQuery();

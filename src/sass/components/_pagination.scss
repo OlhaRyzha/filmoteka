@@ -1,6 +1,132 @@
-.pages{
+#pagination {
   display: flex;
   justify-content: center;
-  margin: 40px 0;
-  color: var(--main-txt-cl);
+  align-items: center;
+  margin: 60px 0;
+
 }
+
+
+.pagination__list{
+  margin-top: 50px;
+  padding-bottom: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style-type: none;
+}
+
+.num,
+.pagination-arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+text-decoration: none;
+list-style-type: none;
+  width: 40px;
+  height: 40px;
+  font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--main-txt-cl);
+  border-radius: 5px;
+}
+
+@media screen and (max-width: 470px) {
+  .hide {
+    display: none;
+  }
+}
+
+li span {
+  margin-right: 4px;
+  color: var(--main-txt-cl);
+  @media screen and (max-width: 470px) {
+    display: none;
+  }
+}
+
+.num,
+.pagination-arrow {
+  margin-right: 4px;
+  cursor: pointer;
+}
+
+.num:hover,
+.pagination-arrow:hover {
+  background: #ff6b08;
+  color: white;
+  stroke: white;
+}
+
+.list-pagination li.active {
+  background: #ff6b08;
+  color: white;
+}
+
+.pagination-arrow {
+  background: #f7f7f7;
+  stroke: #000000;
+}
+
+.pag-icon {
+  width: 16px;
+  height: 16px;
+}
+
+
+
+
+// .left-arrow, .right-arrow{
+//   display: flex;
+//   padding: 15px;
+//   justify-content: center;
+//   align-items: center;
+//   width: 40px;
+// height: 40px;
+// background: #F7F7F7;
+// border-radius: 5px;
+
+// }
+// .pagination__list {
+//   max-width: 294px;
+// overflow: hidden;
+//   display: flex;
+//   list-style-type: none;  
+//   gap: 16px;
+//   margin: 0 10px;
+// }
+
+// .pagination__item {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   font-style: normal;
+//   font-weight: 500;
+//   font-size: 12px;
+//   line-height: 16px;
+//   color: var(--main-txt-cl);
+
+  
+// }
+  
+// .pagination__link{
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   &:hover{
+//     width: 40px;
+//     height: 40px;
+//     background: var(--accent-txt-cl);
+//     border-radius: 5px;
+//     color: var(--light-txt-color);
+    
+//       }
+
+// }
+
+// .pagination__item--active {
+//   font-weight: 800;
+//   color: gold;
+// }
