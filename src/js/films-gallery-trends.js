@@ -9,7 +9,7 @@ const container = document.querySelector('#pagination');
 
 themoviedb.fetchTrendMovies()
 .then((data) => {
-
+  themoviedb.page = 1;
     data.results.forEach(film => {
         film.genreNames = film.genre_ids
         .map(filmID => 
