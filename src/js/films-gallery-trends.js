@@ -23,29 +23,29 @@ themoviedb.fetchTrendMovies()
     console.log(err);
 })
 
-async function switchesPages(e) {
-  if (e.target.tagName !== 'A'){
-    return;
-  }
-  themoviedb.fetchTrendMovies()
- .then((data) => {
-  themoviedb.page = 1;
+// async function switchesPages(e) {
+//   if (e.target.tagName !== 'A'){
+//     return;
+//   }
+//   themoviedb.fetchTrendMovies()
+//  .then((data) => {
+//   themoviedb.page = 1;
 
-  themoviedb.page = Number(e.target.textContent);
-    data.results.map(film => {
-    film.genreNames = film.genre_ids.map(genreId => {
-        return themoviedb.genresObject[genreId] || 'Unknown genre';
-    })
- })
+//   themoviedb.page = Number(e.target.textContent);
+//     data.results.map(film => {
+//     film.genreNames = film.genre_ids.map(genreId => {
+//         return themoviedb.genresObject[genreId] || 'Unknown genre';
+//     })
+//  })
     
 
-  galleryEl.innerHTML = createFilmCards(data.results); 
+//   galleryEl.innerHTML = createFilmCards(data.results); 
 
-}).catch((err) => {
-    console.log(err);
-})
-}
+// }).catch((err) => {
+//     console.log(err);
+// })
+// }
 
 
-container.addEventListener('click', switchesPages)
+// container.addEventListener('click', switchesPages)
 
