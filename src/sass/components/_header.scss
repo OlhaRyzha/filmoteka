@@ -148,7 +148,7 @@
 }
 
   .warning {
-    width: 320px;
+    width: 280px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 16px;
@@ -157,15 +157,19 @@
     line-height: 1.17;
     font-weight: 400;
     color: var(--error-txt-color);
-    @media screen and (max-width: 768px) {
-      margin-top: 16px;
-      width: 280px;
-    }
+
     @media screen and (min-width: 768px) {
+      margin-top: 20px;
+      margin-left: auto;
+      margin-right: auto;
+      width: 393px;
     }
-    margin-top: 20px;
+    
     @media screen and (min-width: 1280px) {
       margin-top: 20px;
+      width: 393px;
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 
