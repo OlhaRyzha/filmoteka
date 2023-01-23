@@ -8,16 +8,14 @@ export class ThemoviedbAPI {
     axios.defaults.baseURL = ThemoviedbAPI.BASE_URL;
     this.query = null;
     this.page = 1;
-    this.fetchGenresMovieList().then(data => {
-      this.genresObject = data.reduce((acum, { id, name }) => ({...acum, [id]: name}), {});
-      //  console.log(this.genresObject)
-      })
+
     }
 
 
 
   async fetchFilmByQuery() {
     try {
+      await this.fetchGenresMovieList();
       const response = await axios.get('/search/movie', {
         params: {
           api_key: ThemoviedbAPI.API_KEY,
@@ -37,6 +35,9 @@ export class ThemoviedbAPI {
   }
 
   async fetchGenresMovieList() {
+    if(this.genresObject !== undefined){
+      return
+    }
     try {
       const response = await axios.get('/genre/movie/list', {
         params: {
@@ -47,7 +48,8 @@ export class ThemoviedbAPI {
 
       const { genres } = response.data;
       // console.log(genres);
-      this.genres = genres;
+     
+      this.genresObject = genres .reduce((acum, { id, name }) => ({...acum, [id]: name}), {});
 
       localStorage.setItem('genre', JSON.stringify(genres));
       return genres;
@@ -58,6 +60,8 @@ export class ThemoviedbAPI {
 
   async fetchTrendMovies() {
     try {
+      await this.fetchGenresMovieList();
+      
       const {data} = await axios.get('/trending/movie/day', {
         params: {
           api_key: ThemoviedbAPI.API_KEY,
