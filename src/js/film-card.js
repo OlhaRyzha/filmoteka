@@ -2,7 +2,7 @@
 export function createFilmCards(films) {
   return films
     .map((film, idx) => {
-      const { poster_path, title, release_date, vote_average, genreNames } =
+      const { poster_path, title, release_date, vote_average, genreNames, id } =
         film;
 
       return `
@@ -13,24 +13,26 @@ export function createFilmCards(films) {
               poster_path === null
                 ? 'http://surl.li/emwqv'
                 : 'https://image.tmdb.org/t/p/original' + poster_path
-            }" alt="${title + ' poster'}" class="film-card__poster" />
+            }" alt="${
+        title + ' poster'
+      }" class="film-card__poster" data-id='${id}' />
             ${
               poster_path === null
-                ? '<p style = "position: absolute; top: 47%; left: 50%; transform: translate(-50%, -50%); font-size: 20px; user-select: none;">No poster</p>'
+                ? `<p style = "position: absolute; top: 47%; left: 50%; transform: translate(-50%, -50%); font-size: 20px; user-select: none;" data-id='${id}'>No poster</p>`
                 : ''
             }
             <div class="film-card__content">
-                <h2 class="film-card__title">${title}</h2>
-                <p class="film-card__genre">
+                <h2 class="film-card__title" data-id='${id}'>${title}</h2>
+                <p class="film-card__genre" data-id='${id}'>
                   ${
                     (genreNames.length > 2)
                       ? genreNames.slice(0, 2).join(', ') +
-                        `<span data-id="${idx}" class="js-other-genres">, Other</span>`
+                        `<span data-id="${id}" class="js-other-genres">, Other</span>`
                       : genreNames.join(', ')
                   }
-                    <span class="film-card__release-date" ${
-                      release_date === '' ? "style = 'display: none;'" : ''
-                    } 
+                    <span class="film-card__release-date" data-id='${id}' ${
+        release_date === '' ? "style = 'display: none;'" : ''
+      } 
                     ${
                       (genreNames.length === 0)
                         ? "style = 'margin-left: 0px;'"
