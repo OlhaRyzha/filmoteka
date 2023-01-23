@@ -10,7 +10,7 @@ export function createCardInfo(info) {
     genres,
     vote_average,
     vote_count,
-    id
+    id,
   } = info;
 
   const genreArr = [];
@@ -49,8 +49,8 @@ export function createCardInfo(info) {
                 <h3 class="modal-card__about-title">About</h3>
                 <p class="modal-card__about-descr">${overview}</p>
                 <div class="modal-card__buttons">
-                    <button data-id = '${id}' class="modal-card__watch-btn">add to Watched</button>
-                    <button data-id = '${id}' class="modal-card__queue-btn">add to queue</button>
+                    <button type="button" data-id = '${id}' class="modal-card__watch-btn js-remove-watched">add to watched</button>
+                    <button type="button" data-id = '${id}' class="modal-card__queue-btn js-remove-queue">add to queue</button>
                 </div>
             </div>
             </div>`;
