@@ -4,17 +4,12 @@ import { createFilmCards } from "./film-card";
 
 const themoviedb = new ThemoviedbAPI();
 const galleryEl = document.querySelector('.film-card__list')
+const container = document.querySelector('#pagination');
+
 
 themoviedb.fetchTrendMovies()
 .then((data) => {
-//     const gen = (themoviedb.genres).reduce((acum, { id, name }) => ({
-//         ...acum, [id]: name
-//     }), {});
-//     data.results.map(film => {
-//     film.genreNames = film.genre_ids.map(genreId => {
-//         return gen[genreId] || 'Unknown genre';
-//     })
-//  })
+
     data.results.forEach(film => {
         film.genreNames = film.genre_ids
         .map(filmID => 
@@ -28,4 +23,29 @@ themoviedb.fetchTrendMovies()
     console.log(err);
 })
 
+async function switchesPages(e) {
+  if (e.target.tagName !== 'A'){
+    return;
+  }
+  themoviedb.fetchTrendMovies()
+ .then((data) => {
+  themoviedb.page = 1;
+
+  themoviedb.page = Number(e.target.textContent);
+    data.results.map(film => {
+    film.genreNames = film.genre_ids.map(genreId => {
+        return themoviedb.genresObject[genreId] || 'Unknown genre';
+    })
+ })
+    
+
+  galleryEl.innerHTML = createFilmCards(data.results); 
+
+}).catch((err) => {
+    console.log(err);
+})
+}
+
+
+container.addEventListener('click', switchesPages)
 

@@ -23,7 +23,7 @@ export function createFilmCards(films) {
                 <h2 class="film-card__title">${title}</h2>
                 <p class="film-card__genre">
                   ${
-                    genreNames.length > 2
+                    (genreNames.length > 2)
                       ? genreNames.slice(0, 2).join(', ') +
                         `<span data-id="${idx}" class="js-other-genres">, Other</span>`
                       : genreNames.join(', ')
@@ -32,7 +32,7 @@ export function createFilmCards(films) {
                       release_date === '' ? "style = 'display: none;'" : ''
                     } 
                     ${
-                      genreNames.length === 0
+                      (genreNames.length === 0)
                         ? "style = 'margin-left: 0px;'"
                         : ''
                     }>
@@ -43,11 +43,11 @@ export function createFilmCards(films) {
                       }
                     </span>
                     <span class="film-card__rating" ${
-                      genreNames.length === 0 && release_date === ''
+                     ( genreNames.length === 0) && (release_date === '')
                         ? "style = 'margin-left: 0px;'"
                         : ''
                     }
-                    ${release_date === '' ? "style = 'margin-left: 8px;'" : ''}
+                    ${(release_date === '') ? "style = 'margin-left: 8px;'" : ''}
                     >
                       ${vote_average.toFixed(1)}
                     </span>
