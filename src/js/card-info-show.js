@@ -122,7 +122,7 @@ const theMovieById = new ThemoviedbAPI();
   //   onCloseCardInfoElClick();
   // };
 
-  // refs.openCardInfoEl.addEventListener('click', onOpenCardInfoElClick);
-  // refs.closeCardInfoEl.addEventListener('click', onCloseCardInfoElClick);
+  refs.openCardInfoEl.addEventListener('click', onOpenCardInfoElClick);
+  refs.closeCardInfoEl.addEventListener('click', onCloseCardInfoElClick);
   // refs.modalCardInfo.addEventListener('click', onModalCardInfoClick);
 })();

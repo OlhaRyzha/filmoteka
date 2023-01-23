@@ -13,7 +13,7 @@ const formEl = document.querySelector('.search-form#home-page');
 const submitBtnEl = document.querySelector('.search-form .search-btn');
 const errorMessage = document.querySelector('.warning');
 
-// formEl.addEventListener('submit', onFormSubmit);
+formEl.addEventListener('submit', onFormSubmit);
 
 async function onFormSubmit(event) {
   event.preventDefault();
