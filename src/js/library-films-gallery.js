@@ -7,6 +7,7 @@
 // const watchedBtnEl = document.querySelector('.js-watched');
 // const queueBtnEl = document.querySelector('.js-queue');
 
+
 // watchedBtnEl.addEventListener('click', onWatchedBtnClick);
 // queueBtnEl.addEventListener('click', onQueueBtnClick);
 

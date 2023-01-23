@@ -10,6 +10,7 @@ export function createCardInfo(info) {
     genres,
     vote_average,
     vote_count,
+    id
   } = info;
 
   const genreArr = [];
@@ -19,7 +20,7 @@ export function createCardInfo(info) {
 
   const genreString = genreArr.join(', ');
 
-  return `<div class="modal-card__poster">
+  return `<div class="modal-card__poster" >
                 <img src="${
                   'https://image.tmdb.org/t/p/original' + poster_path
                 }" alt="${title + 'poster'}">
@@ -48,8 +49,8 @@ export function createCardInfo(info) {
                 <h3 class="modal-card__about-title">About</h3>
                 <p class="modal-card__about-descr">${overview}</p>
                 <div class="modal-card__buttons">
-                    <button class="modal-card__watch-btn">add to Watched</button>
-                    <button class="modal-card__queue-btn">add to queue</button>
+                    <button data-id = '${id}' class="modal-card__watch-btn">add to Watched</button>
+                    <button data-id = '${id}' class="modal-card__queue-btn">add to queue</button>
                 </div>
             </div>
             </div>`;
