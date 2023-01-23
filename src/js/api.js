@@ -1,4 +1,5 @@
 import axios from 'axios';
+import localStorageService from './localstorage.js';
 
 export class ThemoviedbAPI {
   static BASE_URL = 'https://api.themoviedb.org/3';
@@ -8,7 +9,8 @@ export class ThemoviedbAPI {
     axios.defaults.baseURL = ThemoviedbAPI.BASE_URL;
     this.query = null;
     this.page = 1;
-
+    this.watchArray = [...localStorageService.load('watched')];
+    this.queueArray = [...localStorageService.load('queue')];
     }
 
 
@@ -78,6 +80,8 @@ export class ThemoviedbAPI {
 
   async fetchFilmInfo(id) {
     try {
+await this.fetchGenresMovieList();
+
       const response = await axios.get(`/movie/${id}`, {
         params: {
           api_key: ThemoviedbAPI.API_KEY,
