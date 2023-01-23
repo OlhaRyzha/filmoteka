@@ -11,6 +11,7 @@ const themoviedbAPI = new ThemoviedbAPI();
 const galleryEl = document.querySelector('.film-card__list');
 const formEl = document.querySelector('.search-form#home-page');
 const submitBtnEl = document.querySelector('.search-form .search-btn');
+const errorMessage = document.querySelector('.warning');
 
 formEl.addEventListener('submit', onFormSubmit);
 
@@ -21,7 +22,7 @@ async function onFormSubmit(event) {
 
   submitBtnEl.disabled = true;
   themoviedbAPI.query = inputValue;
-
+  errorMessage.classList.add('is-hidden');
   if (inputValue === '') {
     galleryEl.innerHTML = '';
     submitBtnEl.disabled = false;
@@ -35,9 +36,11 @@ async function onFormSubmit(event) {
     const { results } = filmsByQuery;
 
     if (results.length === 0) {
-      Notiflix.Notify.failure(
-        'Sorry, there are no movies matching your search query. Please try again ♥'
-      );
+      errorMessage.classList.remove('is-hidden');
+      // Notiflix.Notify.failure(
+      //   'Sorry, there are no movies matching your search query. Please try again ♥'
+      // );
+      
       galleryEl.innerHTML = '';
       submitBtnEl.disabled = false;
       return;
