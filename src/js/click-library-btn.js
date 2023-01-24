@@ -14,7 +14,7 @@ const libraryBtn = document.querySelector('.library__js');
 const container = document.querySelector('#pagination');
 const footer = document.querySelector('.footer__container');
 
-console.log(libraryBtn);
+
 const theMovieById = new ThemoviedbAPI();
 libraryBtn.addEventListener('click', onLibraryBtnClick);
  
