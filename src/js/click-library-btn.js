@@ -13,7 +13,7 @@ const galleryEl = document.querySelector('.library-film-card__list');
 const libraryBtn = document.querySelector('.library__js');
 const container = document.querySelector('#pagination');
 const footer = document.querySelector('.footer__container');
-
+container.innerHTML ='';
 console.log(libraryBtn);
 const theMovieById = new ThemoviedbAPI();
 libraryBtn.addEventListener('click', onLibraryBtnClick);
@@ -26,7 +26,7 @@ async function onLibraryBtnClick(e){
  
   if(!watchedMovies){
     Notify.failure(
-      'Sorry, there are no filmes matching your search query. Please try again.'
+      'Sorry, there are no films matching your search query. Please try again.'
     );
     hideLoader();
 
