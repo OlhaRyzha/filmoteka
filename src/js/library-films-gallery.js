@@ -26,6 +26,8 @@ queueBtnEl.addEventListener('click', onQueueBtnClick);
 async function onWatchedBtnClick(event) {
   galleryEl.innerHTML = '';
   showLoader();
+  queueBtnEl.classList.remove('is-active-btn');
+  watchedBtnEl.classList.add('is-active-btn');
  const watchedMovies = localStorageService.load('watched');
  
 
@@ -95,7 +97,8 @@ async function onWatchedBtnClick(event) {
 async function onQueueBtnClick(event) {
   galleryEl.innerHTML = '';
   showLoader();
-
+  queueBtnEl.classList.add('is-active-btn');
+  watchedBtnEl.classList.remove('is-active-btn');
  const queuedMovies = localStorageService.load('queue');
 
  if(!queuedMovies){
