@@ -76,10 +76,8 @@ const theMovieById = new ThemoviedbAPI();
       theMovieById
         .fetchFilmInfo(movieId)
         .then(data => {
-          queue.push(data)
-          console.log(queue);
-          localStorageService.save('queue', queue);
-          // console.log(queue);
+          localStorageService.save('queue', data);
+          console.log(data);
         })
         .catch(err => {
           console.log(err);
