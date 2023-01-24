@@ -11,7 +11,7 @@ export function createFilmCards(films) {
         }>
             <img src="${
               poster_path === null
-                ? 'http://surl.li/emwqv'
+                ? new URL('../images/black-poster.jpg', import.meta.url)
                 : 'https://image.tmdb.org/t/p/original' + poster_path
             }" alt="${
         title + ' poster'
