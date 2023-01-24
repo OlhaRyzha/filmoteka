@@ -11,8 +11,14 @@ body {
   line-height: calc(16 / 12);
   color: var(--light-txt-color);
   background-color: var(--accent-bg-cl);
+  
 }
-
+// body.dark-theme > .films-gallery{
+//   background-color: rgb(95, 94, 94);
+// }
+// body.light-theme > .films-gallery{
+//   background-color: var(--accent-bg-cl);
+// }
 ul {
   list-style-type: none;
 }
