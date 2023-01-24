@@ -3,10 +3,15 @@
 import { ThemoviedbAPI } from './api';
 import { createCardInfo } from './card-info';
 import localStorageService from './localstorage.js';
+import { showLoader, hideLoader } from './loaders';
 
 const theMovieById = new ThemoviedbAPI();
- const watched = localStorageService.load('watched') ? [...localStorageService.load('watched')] : [];
- const queue = localStorageService.load('queue') ? [...localStorageService.load('queue')] : [];
+export const watched = localStorageService.load('watched')
+  ? [...localStorageService.load('watched')]
+  : [];
+export const queue = localStorageService.load('queue')
+  ? [...localStorageService.load('queue')]
+  : [];
 
 (() => {
   const refs = {
@@ -15,28 +20,28 @@ const theMovieById = new ThemoviedbAPI();
     modalCardInfo: document.querySelector('[data-modal-card]'),
     modalCardContent: document.querySelector('.modal-card__content'),
     body: document.querySelector('body'),
-    
   };
-
 
   let watchBtn;
   let queueBtn;
 
-  const onOpenCardInfoElClick = event => {
+  const onOpenCardInfoElClick = async event => {
     if (event.target.nodeName !== 'UL') {
+      showLoader();
       refs.modalCardInfo.classList.remove('is-hidden');
       refs.body.classList.add('no-scroll');
       document.addEventListener('keydown', onEscKeyBtnPress);
 
       const movieId = event.target.getAttribute('data-id');
 
-      theMovieById
+      await theMovieById
         .fetchFilmInfo(movieId)
         .then(data => {
           refs.modalCardContent.innerHTML = createCardInfo(data);
+          hideLoader();
           watchBtn = document.querySelector('.modal-card__watch-btn');
           watchBtn.addEventListener('click', onAddWatchedBtnClick);
-          
+
           queueBtn = document.querySelector('.modal-card__queue-btn');
           queueBtn.addEventListener('click', onAddQueueBtnClick);
         })
@@ -66,7 +71,6 @@ const theMovieById = new ThemoviedbAPI();
       target.addEventListener('click', onAddWatchedBtnClick);
     }
 
-   
     if (target.classList.contains('modal-card__queue-btn')) {
       target.addEventListener('click', onAddQueueBtnClick);
     }
@@ -76,7 +80,7 @@ const theMovieById = new ThemoviedbAPI();
       theMovieById
         .fetchFilmInfo(movieId)
         .then(data => {
-          queue.push(data)
+          queue.push(data);
           console.log(queue);
           localStorageService.save('queue', queue);
           // console.log(queue);
@@ -93,42 +97,42 @@ const theMovieById = new ThemoviedbAPI();
     onCloseCardInfoElClick();
   };
 
-  // const onModalCardContentClick = event => {
-  //   const { target } = event;
-  //   if (target.nodeName !== 'BUTTON') {
-  //     return;
-  //   }
-  //   if (target.classList.contains('js-remove-watched')) {
-  //     target.textContent = 'remove from watched';
-  //     target.classList.remove('js-remove-watched');
-  //     return;
-  //   } else if (
-  //     !target.classList.contains('js-remove-watched') &&
-  //     target.classList.contains('modal-card__watch-btn')
-  //   ) {
-  //     target.textContent = 'add to watched';
-  //     target.classList.add('js-remove-watched');
-  //     return;
-  //   }
+  const onModalCardContentClick = event => {
+    const { target } = event;
+    if (target.nodeName !== 'BUTTON') {
+      return;
+    }
+    if (target.classList.contains('js-remove-watched')) {
+      target.textContent = 'remove from watched';
+      target.classList.remove('js-remove-watched');
+      return;
+    } else if (
+      !target.classList.contains('js-remove-watched') &&
+      target.classList.contains('modal-card__watch-btn')
+    ) {
+      target.textContent = 'add to watched';
+      target.classList.add('js-remove-watched');
+      return;
+    }
 
-  //   if (target.classList.contains('js-remove-queue')) {
-  //     target.textContent = 'remove from queue';
-  //     target.classList.remove('js-remove-queue');
-  //     return;
-  //   } else if (
-  //     !target.classList.contains('js-remove-queue') &&
-  //     target.classList.contains('modal-card__queue-btn')
-  //   ) {
-  //     target.textContent = 'add to queue';
-  //     target.classList.add('js-remove-queue');
-  //     return;
-  //   }
-  // };
+    if (target.classList.contains('js-remove-queue')) {
+      target.textContent = 'remove from queue';
+      target.classList.remove('js-remove-queue');
+      return;
+    } else if (
+      !target.classList.contains('js-remove-queue') &&
+      target.classList.contains('modal-card__queue-btn')
+    ) {
+      target.textContent = 'add to queue';
+      target.classList.add('js-remove-queue');
+      return;
+    }
+  };
 
   refs.openCardInfoEl.addEventListener('click', onOpenCardInfoElClick);
   refs.closeCardInfoEl.addEventListener('click', onCloseCardInfoElClick);
   refs.modalCardInfo.addEventListener('click', onModalCardInfoClick);
-  // refs.modalCardContent.addEventListener('click', onModalCardContentClick);
+  refs.modalCardContent.addEventListener('click', onModalCardContentClick);
 
   async function onAddQueueBtnClick(e) {
     const movieId = e.target.getAttribute('data-id');
@@ -147,10 +151,10 @@ const theMovieById = new ThemoviedbAPI();
   async function onAddWatchedBtnClick(e) {
     const movieId = e.target.getAttribute('data-id');
     if (watched.includes(movieId)) {
-      return
+      return;
     }
     watched.push(movieId);
-    
+
     await theMovieById
       .fetchFilmInfo(movieId)
       .then(data => {
