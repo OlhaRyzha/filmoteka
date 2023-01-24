@@ -86,3 +86,17 @@ img {
     border: 1px solid #ffffff;
   }
 }
+.info-card{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  height: 150px;
+  position: absolute;
+  border: 1px solid #b8b4b4;
+  border-radius: 10px;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: black;
+}
