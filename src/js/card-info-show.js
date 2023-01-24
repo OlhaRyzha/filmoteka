@@ -5,6 +5,8 @@ import { createCardInfo } from './card-info';
 import localStorageService from './localstorage.js';
 
 const theMovieById = new ThemoviedbAPI();
+const watched = [];
+const queue = [];
 
 (() => {
   const refs = {
@@ -56,10 +58,12 @@ const theMovieById = new ThemoviedbAPI();
 
     async function onAddWatchedBtnClick() {
       const movieId = target.getAttribute('data-id');
-      theMovieById
+      watched.push(movieId);
+      await theMovieById
         .fetchFilmInfo(movieId)
         .then(data => {
-          localStorageService.save('watched', data);
+          localStorageService.save('watched', watched);
+          // console.log(localStorageService.load('watched'));
         })
         .catch(err => {
           console.log(err);
@@ -74,8 +78,10 @@ const theMovieById = new ThemoviedbAPI();
       theMovieById
         .fetchFilmInfo(movieId)
         .then(data => {
-          localStorageService.save('queue', data);
-          console.log(data);
+          queue.push(data)
+          console.log(queue);
+          localStorageService.save('queue', queue);
+          // console.log(queue);
         })
         .catch(err => {
           console.log(err);

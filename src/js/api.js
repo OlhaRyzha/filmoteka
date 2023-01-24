@@ -78,6 +78,7 @@ export class ThemoviedbAPI {
 
   async fetchFilmInfo(id) {
     try {
+      await this.fetchGenresMovieList();
       const response = await axios.get(`/movie/${id}`, {
         params: {
           api_key: ThemoviedbAPI.API_KEY,
