@@ -9,6 +9,7 @@ export class ThemoviedbAPI {
     this.query = null;
     this.page = 1;
 
+
     }
 
 

@@ -3,10 +3,15 @@
 import { ThemoviedbAPI } from './api';
 import { createCardInfo } from './card-info';
 import localStorageService from './localstorage.js';
+import { showLoader, hideLoader } from './loaders';
 
 const theMovieById = new ThemoviedbAPI();
-const watched = [];
-const queue = [];
+export const watched = localStorageService.load('watched')
+  ? [...localStorageService.load('watched')]
+  : [];
+export const queue = localStorageService.load('queue')
+  ? [...localStorageService.load('queue')]
+  : [];
 
 (() => {
   const refs = {
@@ -17,18 +22,28 @@ const queue = [];
     body: document.querySelector('body'),
   };
 
-  const onOpenCardInfoElClick = event => {
+  let watchBtn;
+  let queueBtn;
+
+  const onOpenCardInfoElClick = async event => {
     if (event.target.nodeName !== 'UL') {
+      showLoader();
       refs.modalCardInfo.classList.remove('is-hidden');
       refs.body.classList.add('no-scroll');
       document.addEventListener('keydown', onEscKeyBtnPress);
 
       const movieId = event.target.getAttribute('data-id');
 
-      theMovieById
+      await theMovieById
         .fetchFilmInfo(movieId)
         .then(data => {
           refs.modalCardContent.innerHTML = createCardInfo(data);
+          hideLoader();
+          watchBtn = document.querySelector('.modal-card__watch-btn');
+          watchBtn.addEventListener('click', onAddWatchedBtnClick);
+
+          queueBtn = document.querySelector('.modal-card__queue-btn');
+          queueBtn.addEventListener('click', onAddQueueBtnClick);
         })
         .catch(err => {
           console.log(err);
@@ -56,19 +71,6 @@ const queue = [];
       target.addEventListener('click', onAddWatchedBtnClick);
     }
 
-    async function onAddWatchedBtnClick() {
-      const movieId = target.getAttribute('data-id');
-      watched.push(movieId);
-      await theMovieById
-        .fetchFilmInfo(movieId)
-        .then(data => {
-          localStorageService.save('watched', watched);
-          // console.log(localStorageService.load('watched'));
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
     if (target.classList.contains('modal-card__queue-btn')) {
       target.addEventListener('click', onAddQueueBtnClick);
     }
@@ -78,7 +80,7 @@ const queue = [];
       theMovieById
         .fetchFilmInfo(movieId)
         .then(data => {
-          queue.push(data)
+          queue.push(data);
           console.log(queue);
           localStorageService.save('queue', queue);
           // console.log(queue);
@@ -131,4 +133,36 @@ const queue = [];
   refs.closeCardInfoEl.addEventListener('click', onCloseCardInfoElClick);
   refs.modalCardInfo.addEventListener('click', onModalCardInfoClick);
   refs.modalCardContent.addEventListener('click', onModalCardContentClick);
+
+  async function onAddQueueBtnClick(e) {
+    const movieId = e.target.getAttribute('data-id');
+    queue.push(movieId);
+    theMovieById
+      .fetchFilmInfo(movieId)
+      .then(data => {
+        console.log(queue);
+        localStorageService.save('queue', queue);
+        // console.log(queue);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+  async function onAddWatchedBtnClick(e) {
+    const movieId = e.target.getAttribute('data-id');
+    if (watched.includes(movieId)) {
+      return;
+    }
+    watched.push(movieId);
+
+    await theMovieById
+      .fetchFilmInfo(movieId)
+      .then(data => {
+        localStorageService.save('watched', watched);
+        // console.log(localStorageService.load('watched'));
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 })();

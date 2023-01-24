@@ -5,7 +5,6 @@ import { showLoader, hideLoader } from './loaders';
 import { ThemoviedbAPI } from './api';
 import { createFilmCards } from './film-card';
 
-
 const themoviedbAPI = new ThemoviedbAPI();
 
 const galleryEl = document.querySelector('.film-card__list');
@@ -26,7 +25,6 @@ async function onFormSubmit(event) {
   themoviedbAPI.query = inputValue;
   errorMessage.classList.add('is-hidden');
   if (inputValue.length === 0) {
-    
     hideLoader();
     event.target.reset();
     galleryEl.innerHTML = '';
@@ -39,22 +37,20 @@ async function onFormSubmit(event) {
 
     const filmsByQuery = await themoviedbAPI.fetchFilmByQuery();
     const { results, total_results } = filmsByQuery;
-    console.log(total_results)
+    console.log(total_results);
     async function getPagination() {
       try {
-       
         const options = {
           totalItems: total_results,
           itemsPerPage: 20,
           visiblePages: 5,
         };
-    
+
         const pagination = new Pagination(container, options);
-    
+
         pagination.on('afterMove', function (eventData) {
-    
           themoviedbAPI.page = eventData.page;
-    
+
           themoviedbAPI
             .fetchFilmByQuery()
             .then(data => {
@@ -63,7 +59,7 @@ async function onFormSubmit(event) {
                   return themoviedbAPI.genresObject[genreId] || 'Unknown genre';
                 });
               });
-    
+
               galleryEl.innerHTML = createFilmCards(data.results);
             })
             .catch(err => {
@@ -74,7 +70,7 @@ async function onFormSubmit(event) {
         console.log(error.message);
       }
     }
-    
+
     getPagination();
 
     if (results.length === 0) {
@@ -83,7 +79,7 @@ async function onFormSubmit(event) {
       // Notiflix.Notify.failure(
       //   'Sorry, there are no movies matching your search query. Please try again ♥'
       // );
-      
+
       // galleryEl.innerHTML = '';
       // submitBtnEl.disabled = false;
       return;

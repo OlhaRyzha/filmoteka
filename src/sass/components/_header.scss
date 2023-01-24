@@ -504,6 +504,14 @@ body.light-theme {
 
 body.dark-theme {
   background-color: var(--dark-bg-color);
+
+  .film-card__item {
+    background-color: #f7f7f7;
+    border-radius: 10px 0 10px 0;
+  }
+  .film-card__poster {
+    border-radius: 10px 0 0 0;
+  }
 }
 
 // .icon {
