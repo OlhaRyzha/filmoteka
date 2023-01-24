@@ -26,37 +26,15 @@ const theMovieById = new ThemoviedbAPI();
 
       movieId = event.target.getAttribute('data-id');
 
-      const data = await theMovieById.fetchFilmInfo(movieId);
-
-      refs.modalCardContent.innerHTML = createCardInfo(data);
-
-      watchBtn = document.querySelector('.modal-card__watch-btn');
-      watchBtn.addEventListener('click', onAddWatchedBtnClick);
-      
-      queueBtn = document.querySelector('.modal-card__queue-btn');
-      queueBtn.addEventListener('click', onAddQueueBtnClick);
-      
-      return data;
-
-      }
-    };
-    
-  function onAddWatchedBtnClick(event) {
-    event.currentTarget.disabled = true; 
-    if (theMovieById.watchArray.includes(movieId)) {
-        return
-      }
-      theMovieById.watchArray.push(movieId);
-      localStorageService.save('watched', theMovieById.watchArray);
-  };
-    
-    function onAddQueueBtnClick(event) {
-      event.currentTarget.disabled = true;  
-      if (theMovieById.queueArray.includes(movieId)) {
-        return
-      }
-      theMovieById.queueArray.push(movieId);
-      localStorageService.save('queue', theMovieById.queueArray);
+      theMovieById
+        .fetchFilmInfo(movieId)
+        .then(data => {
+          refs.modalCardContent.innerHTML = createCardInfo(data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   };
 
   const onCloseCardInfoElClick = () => {
@@ -77,25 +55,37 @@ const theMovieById = new ThemoviedbAPI();
   // const onModalCardInfoClick = event => {
   //   const { target, currentTarget } = event;
 
-  //           if(target.classList.contains('modal-card__watch-btn')){
-  //             target.addEventListener('click', onAddWatchedBtnClick);
-  //           }
+    if (target.classList.contains('modal-card__watch-btn')) {
+      target.addEventListener('click', onAddWatchedBtnClick);
+    }
 
-  //       async function onAddWatchedBtnClick() {
-  //           const movieId = target.getAttribute('data-id');
-  //           theMovieById
-  //           .fetchFilmInfo(movieId)
-  //           .then(data => {
-  //             localStorageService.save('watched', data);
-  //           })
-  //           .catch(err => {
-  //             console.log(err);
-  //           });
+    async function onAddWatchedBtnClick() {
+      const movieId = target.getAttribute('data-id');
+      theMovieById
+        .fetchFilmInfo(movieId)
+        .then(data => {
+          localStorageService.save('watched', data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+    if (target.classList.contains('modal-card__queue-btn')) {
+      target.addEventListener('click', onAddQueueBtnClick);
+    }
 
-  //         };
-  //           if(target.classList.contains('modal-card__queue-btn')){
-  //             target.addEventListener('click', onAddQueueBtnClick);
-  //           }
+    async function onAddQueueBtnClick() {
+      const movieId = target.getAttribute('data-id');
+      theMovieById
+        .fetchFilmInfo(movieId)
+        .then(data => {
+          localStorageService.save('queue', data);
+          console.log(data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
 
   //           if(target.classList.contains('modal-card__queue-btn')){
   //             target.addEventListener('click', onAddQueueBtnClick);
@@ -122,7 +112,40 @@ const theMovieById = new ThemoviedbAPI();
   //   onCloseCardInfoElClick();
   // };
 
+  const onModalCardContentClick = event => {
+    const { target } = event;
+    if (target.nodeName !== 'BUTTON') {
+      return;
+    }
+    if (target.classList.contains('js-remove-watched')) {
+      target.textContent = 'remove from watched';
+      target.classList.remove('js-remove-watched');
+      return;
+    } else if (
+      !target.classList.contains('js-remove-watched') &&
+      target.classList.contains('modal-card__watch-btn')
+    ) {
+      target.textContent = 'add to watched';
+      target.classList.add('js-remove-watched');
+      return;
+    }
+
+    if (target.classList.contains('js-remove-queue')) {
+      target.textContent = 'remove from queue';
+      target.classList.remove('js-remove-queue');
+      return;
+    } else if (
+      !target.classList.contains('js-remove-queue') &&
+      target.classList.contains('modal-card__queue-btn')
+    ) {
+      target.textContent = 'add to queue';
+      target.classList.add('js-remove-queue');
+      return;
+    }
+  };
+
   refs.openCardInfoEl.addEventListener('click', onOpenCardInfoElClick);
   refs.closeCardInfoEl.addEventListener('click', onCloseCardInfoElClick);
-  // refs.modalCardInfo.addEventListener('click', onModalCardInfoClick);
+  refs.modalCardInfo.addEventListener('click', onModalCardInfoClick);
+  refs.modalCardContent.addEventListener('click', onModalCardContentClick);
 })();
