@@ -1,13 +1,13 @@
 :root {
   /* Fonts */
-  --main-font: "Roboto", sans-serif;
+  --main-font: 'Roboto', sans-serif;
 
   /* Tetx colors */
   --main-txt-cl: #000;
   --accent-txt-cl: #ff6b08;
   --light-txt-color: #fff;
-  --error-txt-color: #FF001B;
-  --current-link: #FF001B;
+  --error-txt-color: #ff001b;
+  --current-link: #ff001b;
   --footer-txt-color: #545454;
 
   /* Bg colors */
@@ -15,8 +15,7 @@
   --footer-bg-color: #f7f7f7;
   --blu-bg-color: #005bbb;
   --yelow-bg-color: #ffd500;
-  --switch-bg-color: #FF001B;
-  --dark-bg-color: #373838;
+  --main-grey: #252d31;
 
   /* Btns */
   --btn-bg-color: #ff6b01;

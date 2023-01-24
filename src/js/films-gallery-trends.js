@@ -4,23 +4,16 @@ import { createFilmCards } from "./film-card";
 
 const themoviedb = new ThemoviedbAPI();
 const galleryEl = document.querySelector('.film-card__list')
+const container = document.querySelector('#pagination');
+
 
 themoviedb.fetchTrendMovies()
 .then((data) => {
-//     const gen = (themoviedb.genres).reduce((acum, { id, name }) => ({
-//         ...acum, [id]: name
-//     }), {});
-//     data.results.map(film => {
-//     film.genreNames = film.genre_ids.map(genreId => {
-//         return gen[genreId] || 'Unknown genre';
-//     })
-//  })
-    data.results.forEach(film => {
-        film.genreNames = film.genre_ids
-        .map(filmID => 
-                (themoviedb.genres).find(({ id }) => id === filmID)
-            )
-                .map(({ name }) => name)
+
+  data.results.map(film => {
+    film.genreNames = film.genre_ids.map(genreId => {
+      return themoviedb.genresObject[genreId] || 'Unknown genre';
+    });
     });
 
   galleryEl.insertAdjacentHTML("beforeend", createFilmCards(data.results))            

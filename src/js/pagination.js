@@ -1,31 +1,48 @@
-// import Pagination from 'tui-pagination';
-// import 'tui-pagination/dist/tui-pagination.css';
-// const container = document.getElementById('pagination');
-// const options = {
-//   totalItems: 17,
-//   itemsPerPage: 10,
-//   visiblePages: 17,
-//   page: 1,
-//   centerAlign: false,
-//   firstItemClassName: 'tui-first-child',
-//   lastItemClassName: 'tui-last-child',
-//   template: {
-//     page: '<a href="#" class="tui-page-btn">{{page}}</a>',
-//     currentPage: '<strong class="tui-page-btn tui-is-selected">{{page}}</strong>',
-//     moveButton:
-//       '<a href="#" class="tui-page-btn tui-{{type}}">' +
-//         '<span class="tui-ico-{{type}}">{{type}}</span>' +
-//       '</a>',
-//     disabledMoveButton:
-//       '<span class="tui-page-btn tui-is-disabled tui-{{type}}">' +
-//         '<span class="tui-ico-{{type}}">{{type}}</span>' +
-//       '</span>',
-//     moreButton:
-//       '<a href="#" class="tui-page-btn tui-{{type}}-is-ellip">' +
-//         '<span class="tui-ico-ellip">...</span>' +
-//       '</a>'
-//   }
-// };
+import Pagination from 'tui-pagination';
+import 'tui-pagination/dist/tui-pagination.min.css';
+import { ThemoviedbAPI } from './api';
+import { createFilmCards } from './film-card';
+import Notiflix from 'notiflix';
 
-// const pagination = new Pagination(container, options);
+const themoviedb = new ThemoviedbAPI();
+const galleryEl = document.querySelector('.film-card__list');
 
+const container = document.querySelector('#pagination');
+
+export async function getPagination() {
+  try {
+    const { total_results } = await themoviedb.fetchTrendMovies();
+
+    const options = {
+      totalItems: total_results < 20 ? total_results : 200,
+      itemsPerPage: 20,
+      visiblePages: 5,
+    };
+
+    const pagination = new Pagination(container, options);
+
+    pagination.on('afterMove', function (eventData) {
+
+      themoviedb.page = eventData.page;
+
+      themoviedb
+        .fetchTrendMovies()
+        .then(data => {
+          data.results.map(film => {
+            film.genreNames = film.genre_ids.map(genreId => {
+              return themoviedb.genresObject[genreId] || 'Unknown genre';
+            });
+          });
+
+          galleryEl.innerHTML = createFilmCards(data.results);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+getPagination();

@@ -1,10 +1,7 @@
 'use strict';
-
+import { showLoader, hideLoader } from './loaders';
 import { ThemoviedbAPI } from './api';
 import { createFilmCards } from './film-card';
-import Notiflix from 'notiflix';
-
-Notiflix.Notify.init({ clickToClose: true });
 
 const themoviedbAPI = new ThemoviedbAPI();
 
@@ -18,12 +15,14 @@ formEl.addEventListener('submit', onFormSubmit);
 async function onFormSubmit(event) {
   event.preventDefault();
 
-  const inputValue = event.currentTarget.elements.query.value;
+  showLoader();
 
   submitBtnEl.disabled = true;
+  const inputValue = event.currentTarget.elements.query.value;
   themoviedbAPI.query = inputValue;
   errorMessage.classList.add('is-hidden');
   if (inputValue === '') {
+    hideLoader();
     galleryEl.innerHTML = '';
     submitBtnEl.disabled = false;
     return;
@@ -56,15 +55,7 @@ async function onFormSubmit(event) {
   } catch (err) {
     console.log(err);
   } finally {
+    hideLoader();
     submitBtnEl.disabled = false;
   }
 }
-
-// galleryEl.addEventListener('click', onFilmCardClick);
-
-// function onFilmCardClick(event) {
-//   if (event.target.nodeName !== 'LI') {
-//     return;
-//   }
-//  ВІДКРИВАННЯ МОДАЛКИ
-// }

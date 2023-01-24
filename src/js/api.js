@@ -7,25 +7,26 @@ export class ThemoviedbAPI {
   constructor() {
     axios.defaults.baseURL = ThemoviedbAPI.BASE_URL;
     this.query = null;
-    this.genres;
-    this.fetchGenresMovieList();
-    // this.page = 1;
-    // this.per_page = 40;
-  }
+    this.page = 1;
+
+    }
+
+
 
   async fetchFilmByQuery() {
     try {
+      await this.fetchGenresMovieList();
       const response = await axios.get('/search/movie', {
         params: {
           api_key: ThemoviedbAPI.API_KEY,
           query: this.query,
-          //   page: this.page,
+          page: this.page,
           //   per_page: this.per_page,
         },
       });
 
       const { data } = response;
-      console.log(data);
+   
 
       return data;
     } catch (err) {
@@ -34,6 +35,9 @@ export class ThemoviedbAPI {
   }
 
   async fetchGenresMovieList() {
+    if(this.genresObject !== undefined){
+      return
+    }
     try {
       const response = await axios.get('/genre/movie/list', {
         params: {
@@ -41,11 +45,13 @@ export class ThemoviedbAPI {
           language: 'en-US',
         },
       });
-      
+
       const { genres } = response.data;
       // console.log(genres);
-      this.genres = genres;
+     
+      this.genresObject = genres .reduce((acum, { id, name }) => ({...acum, [id]: name}), {});
 
+      localStorage.setItem('genre', JSON.stringify(genres));
       return genres;
     } catch (err) {
       console.log(err);
@@ -54,16 +60,36 @@ export class ThemoviedbAPI {
 
   async fetchTrendMovies() {
     try {
-      const { data } = await axios.get('/trending/movie/day', {
+      await this.fetchGenresMovieList();
+      
+      const {data} = await axios.get('/trending/movie/day', {
         params: {
           api_key: ThemoviedbAPI.API_KEY,
-        }
+          page: this.page,
+        },
       });
-      
+
       return data;
     } catch (err) {
       console.log(err);
     }
   }
+  
 
+  async fetchFilmInfo(id) {
+    try {
+      const response = await axios.get(`/movie/${id}`, {
+        params: {
+          api_key: ThemoviedbAPI.API_KEY,
+          language: 'en-US',
+        },
+      });
+      const { data } = response;
+
+      return data;
+    } catch (err) {
+      console.log(err);
+    }
+  }
 }
+
