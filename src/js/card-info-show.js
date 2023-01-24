@@ -5,8 +5,6 @@ import { createCardInfo } from './card-info';
 import localStorageService from './localstorage.js';
 
 const theMovieById = new ThemoviedbAPI();
- const watched = [...localStorageService.load('watched')] ? [...localStorageService.load('watched')] : [];
- const queue = [...localStorageService.load('queue')] ? [...localStorageService.load('queue')] : [];
 
 (() => {
   const refs = {
@@ -15,12 +13,7 @@ const theMovieById = new ThemoviedbAPI();
     modalCardInfo: document.querySelector('[data-modal-card]'),
     modalCardContent: document.querySelector('.modal-card__content'),
     body: document.querySelector('body'),
-    
   };
-
-
-  let watchBtn;
-  let queueBtn;
 
   const onOpenCardInfoElClick = event => {
     if (event.target.nodeName !== 'UL') {
@@ -34,11 +27,6 @@ const theMovieById = new ThemoviedbAPI();
         .fetchFilmInfo(movieId)
         .then(data => {
           refs.modalCardContent.innerHTML = createCardInfo(data);
-          watchBtn = document.querySelector('.modal-card__watch-btn');
-          watchBtn.addEventListener('click', onAddWatchedBtnClick);
-          
-          queueBtn = document.querySelector('.modal-card__queue-btn');
-          queueBtn.addEventListener('click', onAddQueueBtnClick);
         })
         .catch(err => {
           console.log(err);
@@ -66,7 +54,17 @@ const theMovieById = new ThemoviedbAPI();
       target.addEventListener('click', onAddWatchedBtnClick);
     }
 
-   
+    async function onAddWatchedBtnClick() {
+      const movieId = target.getAttribute('data-id');
+      theMovieById
+        .fetchFilmInfo(movieId)
+        .then(data => {
+          localStorageService.save('watched', data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
     if (target.classList.contains('modal-card__queue-btn')) {
       target.addEventListener('click', onAddQueueBtnClick);
     }
@@ -91,72 +89,40 @@ const theMovieById = new ThemoviedbAPI();
     onCloseCardInfoElClick();
   };
 
-  // const onModalCardContentClick = event => {
-  //   const { target } = event;
-  //   if (target.nodeName !== 'BUTTON') {
-  //     return;
-  //   }
-  //   if (target.classList.contains('js-remove-watched')) {
-  //     target.textContent = 'remove from watched';
-  //     target.classList.remove('js-remove-watched');
-  //     return;
-  //   } else if (
-  //     !target.classList.contains('js-remove-watched') &&
-  //     target.classList.contains('modal-card__watch-btn')
-  //   ) {
-  //     target.textContent = 'add to watched';
-  //     target.classList.add('js-remove-watched');
-  //     return;
-  //   }
+  const onModalCardContentClick = event => {
+    const { target } = event;
+    if (target.nodeName !== 'BUTTON') {
+      return;
+    }
+    if (target.classList.contains('js-remove-watched')) {
+      target.textContent = 'remove from watched';
+      target.classList.remove('js-remove-watched');
+      return;
+    } else if (
+      !target.classList.contains('js-remove-watched') &&
+      target.classList.contains('modal-card__watch-btn')
+    ) {
+      target.textContent = 'add to watched';
+      target.classList.add('js-remove-watched');
+      return;
+    }
 
-  //   if (target.classList.contains('js-remove-queue')) {
-  //     target.textContent = 'remove from queue';
-  //     target.classList.remove('js-remove-queue');
-  //     return;
-  //   } else if (
-  //     !target.classList.contains('js-remove-queue') &&
-  //     target.classList.contains('modal-card__queue-btn')
-  //   ) {
-  //     target.textContent = 'add to queue';
-  //     target.classList.add('js-remove-queue');
-  //     return;
-  //   }
-  // };
+    if (target.classList.contains('js-remove-queue')) {
+      target.textContent = 'remove from queue';
+      target.classList.remove('js-remove-queue');
+      return;
+    } else if (
+      !target.classList.contains('js-remove-queue') &&
+      target.classList.contains('modal-card__queue-btn')
+    ) {
+      target.textContent = 'add to queue';
+      target.classList.add('js-remove-queue');
+      return;
+    }
+  };
 
   refs.openCardInfoEl.addEventListener('click', onOpenCardInfoElClick);
   refs.closeCardInfoEl.addEventListener('click', onCloseCardInfoElClick);
   refs.modalCardInfo.addEventListener('click', onModalCardInfoClick);
-  // refs.modalCardContent.addEventListener('click', onModalCardContentClick);
-
-  async function onAddQueueBtnClick(e) {
-    const movieId = e.target.getAttribute('data-id');
-    queue.push(movieId);
-    theMovieById
-      .fetchFilmInfo(movieId)
-      .then(data => {
-        console.log(queue);
-        localStorageService.save('queue', queue);
-        // console.log(queue);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
-  async function onAddWatchedBtnClick(e) {
-    const movieId = e.target.getAttribute('data-id');
-    if (watched.includes(movieId)) {
-      return
-    }
-    watched.push(movieId);
-    
-    await theMovieById
-      .fetchFilmInfo(movieId)
-      .then(data => {
-        localStorageService.save('watched', watched);
-        // console.log(localStorageService.load('watched'));
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
+  refs.modalCardContent.addEventListener('click', onModalCardContentClick);
 })();
