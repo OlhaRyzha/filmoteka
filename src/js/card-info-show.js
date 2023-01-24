@@ -103,8 +103,10 @@ export const queue = localStorageService.load('queue')
       return;
     }
     if (target.classList.contains('js-remove-watched')) {
+      target.addEventListener('click', onRemoveBtnClick)
       target.textContent = 'remove from watched';
       target.classList.remove('js-remove-watched');
+    
       return;
     } else if (
       !target.classList.contains('js-remove-watched') &&
@@ -112,6 +114,7 @@ export const queue = localStorageService.load('queue')
     ) {
       target.textContent = 'add to watched';
       target.classList.add('js-remove-watched');
+    
       return;
     }
 
@@ -136,6 +139,9 @@ export const queue = localStorageService.load('queue')
 
   async function onAddQueueBtnClick(e) {
     const movieId = e.target.getAttribute('data-id');
+    if (queue.includes(movieId)) {
+      return;
+    }
     queue.push(movieId);
     theMovieById
       .fetchFilmInfo(movieId)
@@ -166,3 +172,8 @@ export const queue = localStorageService.load('queue')
       });
   }
 })();
+async function onRemoveBtnClick(e) {
+  const movieId = e.target.getAttribute('data-id');
+  // console.log(localStorageService.load('watched').splice(watched.indexOf(movieId), 0))
+
+}
