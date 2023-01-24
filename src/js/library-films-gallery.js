@@ -24,7 +24,7 @@ async function onWatchedBtnClick(event) {
   galleryEl.innerHTML = '';
   showLoader();
  const watchedMovies = localStorageService.load('watched');
-  console.log(watchedMovies);
+ 
 
   if (watchedMovies === undefined) {
     hideLoader();
