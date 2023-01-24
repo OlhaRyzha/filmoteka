@@ -13,12 +13,12 @@ const galleryEl = document.querySelector('.library-film-card__list');
 const libraryBtn = document.querySelector('.library__js');
 const container = document.querySelector('#pagination');
 const footer = document.querySelector('.footer__container');
-container.innerHTML ='';
+
 console.log(libraryBtn);
 const theMovieById = new ThemoviedbAPI();
 libraryBtn.addEventListener('click', onLibraryBtnClick);
-
-async function onLibraryBtnClick(e){
+ 
+export async function onLibraryBtnClick(){
   showLoader();
 
   galleryEl.innerHTML ='';
@@ -62,7 +62,10 @@ async function onLibraryBtnClick(e){
           };
       
           const pagination = new Pagination(container, options);
-      
+          const containerfirst = document.querySelector('.tui-page-btn.tui-first');
+          const containerlast = document.querySelector('.tui-page-btn.tui-last')
+          containerlast.innerHTML = `${total_results < 20 ? total_results : Math.round(options.totalItems / options.itemsPerPage)}`;
+          containerfirst.innerHTML = '1';
           pagination.on('afterMove', function (eventData) {
       
             theMovieById.page = eventData.page;
