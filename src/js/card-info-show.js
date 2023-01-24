@@ -14,17 +14,14 @@ const theMovieById = new ThemoviedbAPI();
     modalCardContent: document.querySelector('.modal-card__content'),
     body: document.querySelector('body'),
   };
-  let movieId;
-  let watchBtn;
-  let queueBtn;
 
-  const onOpenCardInfoElClick = async event => {
+  const onOpenCardInfoElClick = event => {
     if (event.target.nodeName !== 'UL') {
       refs.modalCardInfo.classList.remove('is-hidden');
       refs.body.classList.add('no-scroll');
       document.addEventListener('keydown', onEscKeyBtnPress);
 
-      movieId = event.target.getAttribute('data-id');
+      const movieId = event.target.getAttribute('data-id');
 
       theMovieById
         .fetchFilmInfo(movieId)
@@ -42,8 +39,6 @@ const theMovieById = new ThemoviedbAPI();
     refs.body.classList.remove('no-scroll');
     refs.modalCardContent.innerHTML = '';
     document.removeEventListener('keydown', onEscKeyBtnPress);
-    watchBtn.removeEventListener('click', onAddWatchedBtnClick);
-    queueBtn.removeEventListener('click', onAddQueueBtnClick);
   };
 
   const onEscKeyBtnPress = event => {
@@ -52,8 +47,8 @@ const theMovieById = new ThemoviedbAPI();
     }
   };
 
-  // const onModalCardInfoClick = event => {
-  //   const { target, currentTarget } = event;
+  const onModalCardInfoClick = event => {
+    const { target, currentTarget } = event;
 
     if (target.classList.contains('modal-card__watch-btn')) {
       target.addEventListener('click', onAddWatchedBtnClick);
@@ -87,30 +82,12 @@ const theMovieById = new ThemoviedbAPI();
         });
     }
 
-  //           if(target.classList.contains('modal-card__queue-btn')){
-  //             target.addEventListener('click', onAddQueueBtnClick);
-  //           }
+    if (target !== currentTarget) {
+      return;
+    }
 
-  //      async function onAddQueueBtnClick() {
-  //           const movieId = target.getAttribute('data-id');
-  //           theMovieById
-  //           .fetchFilmInfo(movieId)
-  //           .then(data => {
-  //             localStorageService.save('queue', data);
-  //             console.log(data)
-  //           })
-  //           .catch(err => {
-  //             console.log(err);
-  //           });
-
-  //         };
-
-  //   if (target !== currentTarget) {
-  //     return;
-  //   }
-
-  //   onCloseCardInfoElClick();
-  // };
+    onCloseCardInfoElClick();
+  };
 
   const onModalCardContentClick = event => {
     const { target } = event;
