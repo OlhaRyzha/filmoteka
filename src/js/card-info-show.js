@@ -5,8 +5,8 @@ import { createCardInfo } from './card-info';
 import localStorageService from './localstorage.js';
 
 const theMovieById = new ThemoviedbAPI();
- const watched = [...localStorageService.load('watched')] ? [...localStorageService.load('watched')] : [];
- const queue = [...localStorageService.load('queue')] ? [...localStorageService.load('queue')] : [];
+ const watched = localStorageService.load('watched') ? [...localStorageService.load('watched')] : [];
+ const queue = localStorageService.load('queue') ? [...localStorageService.load('queue')] : [];
 
 (() => {
   const refs = {
