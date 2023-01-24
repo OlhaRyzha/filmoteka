@@ -1,3 +1,4 @@
+import './js/loaders';
 import './js/modalFooterTeam';
 import './js/api';
 import './js/film-card';

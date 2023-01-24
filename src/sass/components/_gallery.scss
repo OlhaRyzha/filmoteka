@@ -62,7 +62,7 @@
     font-size: 12px;
     line-height: calc(16 / 12);
     text-transform: uppercase;
-    color: #000000;
+    color: var(--main-txt-cl);
 
     @media screen and (min-width: 1280px) {
       font-size: 20px;
@@ -76,7 +76,7 @@
     flex-wrap: wrap;
     font-size: 12px;
     line-height: calc(16 / 12);
-    color: #ff6b08;
+    color: var(--accent-txt-cl);
 
     @media screen and (min-width: 1280px) {
       font-size: 20px;
@@ -87,7 +87,7 @@
   &__release-date {
     margin-left: 5px;
     margin-right: 9px;
-    border-left: 1px #ff6b08 solid;
+    border-left: 1px var(--accent-txt-cl) solid;
     padding-left: 5px;
 
     @media screen and (min-width: 768px) {
@@ -103,8 +103,8 @@
     height: 16px;
     font-size: 12px;
     line-height: calc(14 / 12);
-    color: #ffffff;
-    background-color: #ff6b01;
+    color: var(--light-txt-color);
+    background-color: var(--btn-bg-color);
     border-radius: 5px;
 
     @media screen and (min-width: 1280px) {
