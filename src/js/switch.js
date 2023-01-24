@@ -8,7 +8,7 @@ const Theme = {
 const switchInput = document.querySelector('#theme-switch-toggle');
 const bodyEl = document.querySelector('body');
 
-console.log(bodyEl)
+// console.log(bodyEl)
 
 switchInput.addEventListener('change', changeTheme);
 
