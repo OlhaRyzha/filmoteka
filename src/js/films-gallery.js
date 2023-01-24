@@ -25,11 +25,12 @@ async function onFormSubmit(event) {
   const inputValue = event.currentTarget.elements.query.value;
   themoviedbAPI.query = inputValue;
   errorMessage.classList.add('is-hidden');
-  if (inputValue === '') {
+  if (inputValue.length === 0) {
+    
     hideLoader();
-
+    event.target.reset();
     galleryEl.innerHTML = '';
-    submitBtnEl.disabled = false;
+    // submitBtnEl.disabled = false;
     return;
   }
 
@@ -43,7 +44,7 @@ async function onFormSubmit(event) {
       try {
        
         const options = {
-          totalItems: total_results < 20 ? total_results : 200,
+          totalItems: total_results,
           itemsPerPage: 20,
           visiblePages: 5,
         };
@@ -59,7 +60,7 @@ async function onFormSubmit(event) {
             .then(data => {
               data.results.map(film => {
                 film.genreNames = film.genre_ids.map(genreId => {
-                  return themoviedb.genresObject[genreId] || 'Unknown genre';
+                  return themoviedbAPI.genresObject[genreId] || 'Unknown genre';
                 });
               });
     
@@ -78,19 +79,20 @@ async function onFormSubmit(event) {
 
     if (results.length === 0) {
       errorMessage.classList.remove('is-hidden');
+      event.target.reset();
       // Notiflix.Notify.failure(
       //   'Sorry, there are no movies matching your search query. Please try again ♥'
       // );
       
       // galleryEl.innerHTML = '';
-      submitBtnEl.disabled = false;
+      // submitBtnEl.disabled = false;
       return;
     }
 
-    results.forEach(film => {
-      film.genreNames = film.genre_ids
-        .map(filmID => genres.find(({ id }) => id === filmID))
-        .map(({ name }) => name);
+    results.map(film => {
+      film.genreNames = film.genre_ids.map(genreId => {
+        return themoviedbAPI.genresObject[genreId] || 'Unknown genre';
+      });
     });
 
     galleryEl.innerHTML = createFilmCards(results);
