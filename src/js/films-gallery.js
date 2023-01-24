@@ -40,7 +40,7 @@ async function onFormSubmit(event) {
       //   'Sorry, there are no movies matching your search query. Please try again ♥'
       // );
       
-      galleryEl.innerHTML = '';
+      // galleryEl.innerHTML = '';
       submitBtnEl.disabled = false;
       return;
     }
