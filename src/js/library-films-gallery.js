@@ -11,8 +11,9 @@ if (!watchedBtnEl || !queueBtnEl) {
   return;
 }
 
-watchedBtnEl.addEventListener('click', onWatchedBtnClick);
-queueBtnEl.addEventListener('click', onQueueBtnClick);
+
+// watchedBtnEl.addEventListener('click', onWatchedBtnClick);
+// queueBtnEl.addEventListener('click', onQueueBtnClick);
 
 function onWatchedBtnClick(event) {
   showLoader();

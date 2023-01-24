@@ -10,10 +10,6 @@ const formEl = document.querySelector('.search-form#home-page');
 const submitBtnEl = document.querySelector('.search-form .search-btn');
 const errorMessage = document.querySelector('.warning');
 
-if (!formEl) {
-  return;
-}
-
 formEl.addEventListener('submit', onFormSubmit);
 
 async function onFormSubmit(event) {
@@ -25,7 +21,6 @@ async function onFormSubmit(event) {
   const inputValue = event.currentTarget.elements.query.value;
   themoviedbAPI.query = inputValue;
   errorMessage.classList.add('is-hidden');
-
   if (inputValue === '') {
     hideLoader();
     galleryEl.innerHTML = '';
@@ -41,8 +36,10 @@ async function onFormSubmit(event) {
 
     if (results.length === 0) {
       errorMessage.classList.remove('is-hidden');
-
-      hideLoader();
+      // Notiflix.Notify.failure(
+      //   'Sorry, there are no movies matching your search query. Please try again ♥'
+      // );
+      
       galleryEl.innerHTML = '';
       submitBtnEl.disabled = false;
       return;
