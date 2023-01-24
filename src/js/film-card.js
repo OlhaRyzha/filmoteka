@@ -11,7 +11,7 @@ export function createFilmCards(films) {
         }>
             <img src="${
               poster_path === null
-                ? new URL('../images/black-poster.jpg', import.meta.url)
+                ? 'http://surl.li/emwqv'
                 : 'https://image.tmdb.org/t/p/original' + poster_path
             }" alt="${
         title + ' poster'
@@ -25,7 +25,7 @@ export function createFilmCards(films) {
                 <h2 class="film-card__title" data-id='${id}'>${title}</h2>
                 <p class="film-card__genre" data-id='${id}'>
                   ${
-                    genreNames.length > 2
+                    (genreNames.length > 2)
                       ? genreNames.slice(0, 2).join(', ') +
                         `<span data-id="${id}" class="js-other-genres">, Other</span>`
                       : genreNames.join(', ')
@@ -34,7 +34,7 @@ export function createFilmCards(films) {
         release_date === '' ? "style = 'display: none;'" : ''
       } 
                     ${
-                      genreNames.length === 0
+                      (genreNames.length === 0)
                         ? "style = 'margin-left: 0px;'"
                         : ''
                     }>
@@ -45,11 +45,11 @@ export function createFilmCards(films) {
                       }
                     </span>
                     <span class="film-card__rating" ${
-                      genreNames.length === 0 && release_date === ''
+                     ( genreNames.length === 0) && (release_date === '')
                         ? "style = 'margin-left: 0px;'"
                         : ''
                     }
-                    ${release_date === '' ? "style = 'margin-left: 8px;'" : ''}
+                    ${(release_date === '') ? "style = 'margin-left: 8px;'" : ''}
                     >
                       ${vote_average.toFixed(1)}
                     </span>
