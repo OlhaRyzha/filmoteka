@@ -23,6 +23,7 @@ async function onFormSubmit(event) {
   errorMessage.classList.add('is-hidden');
   if (inputValue === '') {
     hideLoader();
+
     galleryEl.innerHTML = '';
     submitBtnEl.disabled = false;
     return;

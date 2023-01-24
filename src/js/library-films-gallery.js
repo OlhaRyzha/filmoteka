@@ -23,7 +23,6 @@ function onWatchedBtnClick(event) {
 
   if (watchedMovies === undefined) {
     hideLoader();
-
     return;
   }
 
