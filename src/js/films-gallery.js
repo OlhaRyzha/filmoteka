@@ -28,6 +28,7 @@ async function onFormSubmit(event) {
 
   if (inputValue === '') {
     hideLoader();
+
     galleryEl.innerHTML = '';
     submitBtnEl.disabled = false;
     return;

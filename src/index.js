@@ -8,3 +8,4 @@ import './js/films-gallery-trends';
 import './js/library-films-gallery';
 import './js/localStorage';
 import './js/card-info-show';
+
