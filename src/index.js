@@ -1,4 +1,5 @@
 import './js/loaders';
+import './js/header-animation';
 import './js/modalFooterTeam';
 import './js/api';
 import './js/film-card';
@@ -9,4 +10,3 @@ import './js/library-films-gallery';
 import './js/localStorage';
 import './js/switch';
 import './js/card-info-show';
-
