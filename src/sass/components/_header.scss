@@ -35,15 +35,15 @@
 .header-section {
   position: relative;
 }
-  .is-hidden {
-    opacity: 0;
-    pointer-events: none;
-  }
- // form
-  
-  .search-form {
-    position: relative;
-    text-align: center;
+.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+// form
+
+.search-form {
+  position: relative;
+  text-align: center;
 }
 
 .left-bgr {
@@ -70,7 +70,6 @@
       url(../images/header/vector-7-2x.png),
       url(../images/header/vector-5-2x.png),
       url(../images/header/vector-6-2x.png);
-
   }
 
   @media screen and (min-width: 768px) {
@@ -512,24 +511,6 @@
   transform: translateX(25px);
 }
 
-body.light-theme {
-  background-color: var(--accent-bg-color);
-}
-
-body.dark-theme {
-  background-color: var(--dark-bg-color);
-
-  .film-card__item {
-    background-color: #f7f7f7;
-    border-radius: 10px 0 10px 0;
-  }
-  .film-card__poster {
-    border-radius: 10px 0 0 0;
-  }
-}
-  
-
-
 // .icon {
 //   display: inline-block;
 //   width: 1em;
@@ -543,10 +524,10 @@ body.dark-theme {
 // //   font:normal 75% Arial, Helvetica, sans-serif;
 // // }
 
- canvas {
- display: block;
+canvas {
+  display: block;
   vertical-align: bottom;
- }
+}
 .animation {
   position: relative;
 }
