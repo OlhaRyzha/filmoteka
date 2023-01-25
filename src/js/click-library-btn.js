@@ -45,18 +45,33 @@ export async function onLibraryBtnClick() {
     footer.style.transform = 'translateX(-50%)';
   }
   hideLoader();
-  watchedMovies.map(el => {
-    theMovieById.fetchFilmInfo(el).then(data => {
-      const arrId = data.genres.map(el => el.id);
-      data.genreNames = arrId.map(genreId => {
-        return theMovieById.genresObject[genreId] || 'Unknown genre';
-      });
 
-      galleryEl.insertAdjacentHTML('afterbegin', createCardById(data));
+  if(watchedMovies.length > 6){
 
-      const results = watchedMovies.length;
+    const filmCards = await createFilmsMarkupByIds(watchedMovies.slice(0, 6));
 
-      getPagination(results, data);
+    galleryEl.insertAdjacentHTML('afterbegin', filmCards);
+
+    getPagination(watchedMovies)
+
+    return
+  }
+
+const filmCards = await createFilmsMarkupByIds(watchedMovies);
+
+  galleryEl.insertAdjacentHTML('afterbegin', filmCards);
+}
+
+
+export async function createFilmsMarkupByIds(filmIDs){
+  const films = await Promise.all(filmIDs.map(theMovieById.fetchFilmInfo.bind(theMovieById)));
+
+
+ return films.reduce((filmCards, film) => {
+    const arrId = film.genres.map(el => el.id);
+    film.genreNames = arrId.map(genreId => {
+      return theMovieById.genresObject[genreId] || 'Unknown genre';
     });
-  });
+    return filmCards + createCardById(film)
+  }, '')
 }
