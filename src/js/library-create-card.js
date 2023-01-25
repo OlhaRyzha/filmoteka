@@ -5,7 +5,7 @@ export function createCardById(data){
   data;
 
 return  `
-  <li class="film-card__item" ${
+  <li class="film-card__item" data-id='${id}' ${
     poster_path === null ? 'style = "position: relative;"' : ''
   }>
       <img src="${
