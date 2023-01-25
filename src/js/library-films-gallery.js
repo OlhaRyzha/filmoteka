@@ -21,7 +21,7 @@ watchedBtnEl.addEventListener('click', onLibraryBtnClick);
 queueBtnEl.addEventListener('click', onQueueBtnClick);
 
 async function onQueueBtnClick() {
-  // showLoader();
+  showLoader();
   queueBtnEl.classList.add('is-active-btn');
   watchedBtnEl.classList.remove('is-active-btn');
   galleryEl.innerHTML = '';
@@ -44,6 +44,7 @@ async function onQueueBtnClick() {
     footer.style.left = '50%';
     footer.style.transform = 'translateX(-50%)';
   }
+
   hideLoader();
   queuedMovies.map(el => {
     theMovieById.fetchFilmInfo(el).then(data => {

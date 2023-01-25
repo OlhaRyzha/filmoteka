@@ -1,24 +1,20 @@
 'use strict';
 
-import {
-  ThemoviedbAPI
-} from './api';
-import {
-  createCardInfo
-} from './card-info';
+import { ThemoviedbAPI } from './api';
+import { createCardInfo } from './card-info';
 import localStorageService from './localstorage.js';
-import {
-  showLoader,
-  hideLoader
-} from './loaders';
+import { showLoader, hideLoader } from './loaders';
 // import basicLightbox from 'basiclightbox';
 import * as basicLightbox from 'basiclightbox';
 import 'basiclightbox/dist/basicLightbox.min.css';
 
-
 const theMovieById = new ThemoviedbAPI();
-export const watched = localStorageService.load('watched') ? [...localStorageService.load('watched')] : [];
-export const queue = localStorageService.load('queue') ? [...localStorageService.load('queue')] : [];
+export const watched = localStorageService.load('watched')
+  ? [...localStorageService.load('watched')]
+  : [];
+export const queue = localStorageService.load('queue')
+  ? [...localStorageService.load('queue')]
+  : [];
 
 (() => {
   const refs = {
@@ -73,10 +69,7 @@ export const queue = localStorageService.load('queue') ? [...localStorageService
   };
 
   const onModalCardInfoClick = event => {
-    const {
-      target,
-      currentTarget
-    } = event;
+    const { target, currentTarget } = event;
 
     if (target.classList.contains('modal-card__watch-btn')) {
       target.addEventListener('click', onAddWatchedBtnClick);
@@ -138,25 +131,20 @@ export const queue = localStorageService.load('queue') ? [...localStorageService
     function renderTrailer(data) {
       console.log('fggg');
 
-
-      const instance = basicLightbox.create(
-        `<div class="modal-trailer-backdrop">
+      const instance = basicLightbox
+        .create(
+          `<div class="modal-trailer-backdrop">
           <iframe class="iframe" width="640" height="480" frameborder="0" allowfullscreen allow='autoplay'
             src="https://www.youtube.com/embed/${data.results[0].key}?autoplay=1" >
           </iframe>
-    </div>`).show();
+    </div>`
+        )
+        .show();
 
       // refs.trailerBtn.addEventListener('click', () => {
       //   instance.show();
       // });
     }
-
-
-
-
-
-
-
 
     async function onAddQueueBtnClick() {
       const movieId = target.getAttribute('data-id');
@@ -181,14 +169,12 @@ export const queue = localStorageService.load('queue') ? [...localStorageService
   };
 
   const onModalCardContentClick = event => {
-    const {
-      target
-    } = event;
+    const { target } = event;
     if (target.nodeName !== 'BUTTON') {
       return;
     }
     if (target.classList.contains('js-remove-watched')) {
-      target.addEventListener('click', onRemoveBtnClick)
+      target.addEventListener('click', onRemoveBtnClick);
       target.textContent = 'remove from watched';
       target.classList.remove('js-remove-watched');
 
@@ -231,7 +217,7 @@ export const queue = localStorageService.load('queue') ? [...localStorageService
     theMovieById
       .fetchFilmInfo(movieId)
       .then(data => {
-        console.log(queue);
+        // console.log(queue);
         localStorageService.save('queue', queue);
         // console.log(queue);
       })
@@ -261,5 +247,4 @@ export const queue = localStorageService.load('queue') ? [...localStorageService
 async function onRemoveBtnClick(e) {
   const movieId = e.target.getAttribute('data-id');
   // console.log(localStorageService.load('watched').splice(watched.indexOf(movieId), 0))
-
 }
