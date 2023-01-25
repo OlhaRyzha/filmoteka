@@ -23,6 +23,22 @@ import {
 import {
   createFilmsMarkupByIds
 } from './click-library-btn';
+import {
+  createCardById
+} from './library-create-card';
+import {
+  ThemoviedbAPI
+} from './api';
+import {
+  getPagination
+} from './pagination-ilibrary';
+import {
+  onLibraryBtnClick
+} from './click-library-btn';
+import {
+  createFilmsMarkupByIds
+} from './click-library-btn';
+
 
 const galleryEl = document.querySelector('.library-film-card__list');
 const watchedBtnEl = document.querySelector('.js-watched');
@@ -76,4 +92,5 @@ watchedBtnEl.addEventListener('click', onLibraryBtnClick);
 //   const filmCards = await createFilmsMarkupByIds(queuedMovies);
 
 //   galleryEl.insertAdjacentHTML('afterbegin', filmCards);
+// }
 // }
