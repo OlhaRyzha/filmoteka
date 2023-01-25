@@ -91,8 +91,7 @@ export class ThemoviedbAPI {
 
   async fetchFilmInfo(id) {
     try {
-      console.log(this);
-
+    
       await this.fetchGenresMovieList();
       const response = await axios.get(`/movie/${id}`, {
         params: {

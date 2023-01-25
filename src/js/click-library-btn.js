@@ -35,7 +35,7 @@ export async function onLibraryBtnClick() {
     main.innerHTML = `<div class="info-card">
     <p>you don't have any movies to watch yet((</p>
   </div>`;
-    // main.style.backgroundColor = 'var(--bg-color)';
+
     main.style.height = '738px';
 
     container.classList.add('visually-hidden');
@@ -46,32 +46,31 @@ export async function onLibraryBtnClick() {
   }
   hideLoader();
 
-  if(watchedMovies.length > 6){
-
+  if (watchedMovies.length > 6) {
     const filmCards = await createFilmsMarkupByIds(watchedMovies.slice(0, 6));
 
     galleryEl.insertAdjacentHTML('afterbegin', filmCards);
 
-    getPagination(watchedMovies)
+    getPagination(watchedMovies);
 
-    return
+    return;
   }
 
-const filmCards = await createFilmsMarkupByIds(watchedMovies);
+  const filmCards = await createFilmsMarkupByIds(watchedMovies);
 
   galleryEl.insertAdjacentHTML('afterbegin', filmCards);
 }
 
+export async function createFilmsMarkupByIds(filmIDs) {
+  const films = await Promise.all(
+    filmIDs.map(theMovieById.fetchFilmInfo.bind(theMovieById))
+  );
 
-export async function createFilmsMarkupByIds(filmIDs){
-  const films = await Promise.all(filmIDs.map(theMovieById.fetchFilmInfo.bind(theMovieById)));
-
-
- return films.reduce((filmCards, film) => {
+  return films.reduce((filmCards, film) => {
     const arrId = film.genres.map(el => el.id);
     film.genreNames = arrId.map(genreId => {
       return theMovieById.genresObject[genreId] || 'Unknown genre';
     });
-    return filmCards + createCardById(film)
-  }, '')
+    return filmCards + createCardById(film);
+  }, '');
 }

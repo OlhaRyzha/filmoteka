@@ -24,7 +24,7 @@ export async function getPagination(results) {
 
     const containerfirst = document.querySelector('.tui-page-btn.tui-first');
     const containerlast = document.querySelector('.tui-page-btn.tui-last')
-    containerlast.innerHTML = `${Math.ceil(results / options.itemsPerPage)}`;
+    containerlast.innerHTML = `${Math.ceil(results.length / 6)}`;
     containerfirst.innerHTML = '1';
 
     pagination.on('afterMove', async function ({ page }) {
