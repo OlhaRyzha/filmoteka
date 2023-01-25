@@ -6,7 +6,10 @@
 // }
 .footer {
     background-color: var(--footer-bg-color);
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
     &__container {
         display: flex;
         justify-content: center;

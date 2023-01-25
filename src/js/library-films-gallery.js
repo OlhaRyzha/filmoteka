@@ -6,72 +6,59 @@ import localStorageService from './localStorage';
 import { createCardById } from './library-create-card';
 import { ThemoviedbAPI } from './api';
 import { getPagination } from './pagination-ilibrary';
-
+import { onLibraryBtnClick } from './click-library-btn';
+import { createFilmsMarkupByIds } from './click-library-btn';
 
 const galleryEl = document.querySelector('.library-film-card__list');
 const watchedBtnEl = document.querySelector('.js-watched');
 const queueBtnEl = document.querySelector('.js-queue');
 const container = document.querySelector('#pagination');
-const footer = document.querySelector('.footer__container');
+const footer = document.querySelector('.footer');
+const main = document.querySelector('main');
 
 const theMovieById = new ThemoviedbAPI();
 
-watchedBtnEl.addEventListener('click', onWatchedBtnClick);
-queueBtnEl.addEventListener('click', onQueueBtnClick);
+watchedBtnEl.addEventListener('click', onLibraryBtnClick);
+// queueBtnEl.addEventListener('click', onQueueBtnClick);
 
-async function onWatchedBtnClick(event) {
-  galleryEl.innerHTML = '';
-  showLoader();
-  queueBtnEl.classList.remove('is-active-btn');
-  watchedBtnEl.classList.add('is-active-btn');
+// async function onQueueBtnClick() {
+//   showLoader();
+//   queueBtnEl.classList.add('is-active-btn');
+//   watchedBtnEl.classList.remove('is-active-btn');
+//   galleryEl.innerHTML = '';
+//   const queuedMovies = localStorageService.load('queue');
 
-  const watchedMovies = localStorageService.load('watched');
-  createMovieCard(watchedMovies);
-}
+//   if (!queuedMovies) {
+//     Notify.failure(
+//       'Sorry, there are no films matching your search query. Please try again.'
+//     );
 
-async function onQueueBtnClick(event) {
-  galleryEl.innerHTML = '';
-  showLoader();
-  queueBtnEl.classList.add('is-active-btn');
-  watchedBtnEl.classList.remove('is-active-btn');
+//     hideLoader();
 
-  const queuedMovies = localStorageService.load('queue');
+//     main.innerHTML = `<div class="info-card">
+//     <p>you don't have any movies to watch yet((</p>
+//   </div>`;
+//     main.style.height = '738px';
+//     container.classList.add('visually-hidden');
+//     footer.style.position = 'fixed';
+//     footer.style.bottom = '0';
+//     footer.style.left = '50%';
+//     footer.style.transform = 'translateX(-50%)';
+//   }
 
-  createMovieCard(queuedMovies);
-}
+//   hideLoader();
 
-export async function createMovieCard(arr) {
-  if (!arr || arr.indexOf(arr[0]) === -1) {
-    hideLoader();
-    Notify.failure(
-      'Sorry, there are no filmes matching your search query. Please try again.'
-    );
-    hideLoader();
+//   if (queuedMovies.length > 6) {
+//     const filmCards = await createFilmsMarkupByIds(queuedMovies.slice(0, 6));
 
-    galleryEl.innerHTML = `<div class="info-card">
-    <p>you don't have any movies to watch yet((</p>
-  </div>`;
-    container.classList.add('visually-hidden');
-    footer.style.position = 'fixed';
-    footer.style.bottom = '0';
-    footer.style.left = '50%';
-    footer.style.transform = 'translateX(-50%)';
-  } else {
-    arr.map(el => {
-      theMovieById.fetchFilmInfo(el).then(data => {
-        const arrId = data.genres.map(el => el.id);
-        data.genreNames = arrId.map(genreId => {
-          return theMovieById.genresObject[genreId] || 'Unknown genre';
-        });
+//     galleryEl.insertAdjacentHTML('afterbegin', filmCards);
 
-        galleryEl.insertAdjacentHTML('afterbegin', createCardById(data));
+//     getPagination(queuedMovies);
 
-        const results = arr.length;
+//     return;
+//   }
 
-        getPagination(results, data);
-      });
-    });
-  }
+//   const filmCards = await createFilmsMarkupByIds(queuedMovies);
 
-  hideLoader();
-}
+//   galleryEl.insertAdjacentHTML('afterbegin', filmCards);
+// }

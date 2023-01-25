@@ -4,6 +4,7 @@ import { ThemoviedbAPI } from './api';
 import { createCardInfo } from './card-info';
 import localStorageService from './localstorage.js';
 import { showLoader, hideLoader } from './loaders';
+// import basicLightbox from 'basiclightbox';
 import * as basicLightbox from 'basiclightbox';
 import 'basiclightbox/dist/basicLightbox.min.css';
 
@@ -111,6 +112,21 @@ export const queue = localStorageService.load('queue')
       // });
     }
 
+    async function onAddQueueBtnClick() {
+      const movieId = target.getAttribute('data-id');
+      theMovieById
+        .fetchFilmInfo(movieId)
+        .then(data => {
+          queue.push(data);
+          console.log(queue);
+          localStorageService.save('queue', queue);
+          // console.log(queue);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+
     if (target !== currentTarget) {
       return;
     }
@@ -119,20 +135,11 @@ export const queue = localStorageService.load('queue')
   };
 
   const onModalCardContentClick = event => {
-    const idEl = event.currentTarget.querySelector('[data-id]');
-    const getId = idEl.getAttribute('data-id');
-
     const { target } = event;
     if (target.nodeName !== 'BUTTON') {
       return;
     }
-
-    if (
-      target.classList.contains('modal-card__watch-btn') &&
-      !watched.includes(getId)
-    ) {
-      watched.push(getId);
-      localStorage.setItem('watched', JSON.stringify(watched));
+    if (target.classList.contains('js-remove-watched')) {
       target.addEventListener('click', onRemoveBtnClick);
       target.textContent = 'remove from watched';
       target.classList.remove('js-remove-watched');
@@ -190,6 +197,7 @@ export const queue = localStorageService.load('queue')
     theMovieById
       .fetchFilmInfo(movieId)
       .then(data => {
+        // console.log(queue);
         localStorageService.save('queue', queue);
       })
       .catch(err => {
