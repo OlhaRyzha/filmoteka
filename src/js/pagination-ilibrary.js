@@ -4,6 +4,7 @@ import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.min.css';
 const container = document.querySelector('#pagination');
 import { ThemoviedbAPI } from './api';
+import { createCardById } from './library-create-card';
 
 const theMovieById  = new ThemoviedbAPI();
 const galleryEl = document.querySelector('.film-card__list');
@@ -13,7 +14,7 @@ export async function getPagination(results, data) {
   try {
 
       const options = {
-      totalItems:results < 20 ? results : 200,
+      totalItems: results ,
       itemsPerPage: 20,
       visiblePages: 5,
     };
@@ -22,7 +23,7 @@ export async function getPagination(results, data) {
 
     const containerfirst = document.querySelector('.tui-page-btn.tui-first');
     const containerlast = document.querySelector('.tui-page-btn.tui-last')
-    containerlast.innerHTML = `${results < 20 ? results : Math.round(options.totalItems / options.itemsPerPage)}`;
+    containerlast.innerHTML = `${Math.ceil(results / options.itemsPerPage)}`;
     containerfirst.innerHTML = '1';
 
     pagination.on('afterMove', function (eventData) {
