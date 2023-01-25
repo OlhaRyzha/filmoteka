@@ -135,11 +135,20 @@ export const queue = localStorageService.load('queue')
   };
 
   const onModalCardContentClick = event => {
+    const idEl = event.currentTarget.querySelector('[data-id]');
+    const getId = idEl.getAttribute('data-id');
+
     const { target } = event;
     if (target.nodeName !== 'BUTTON') {
       return;
     }
-    if (target.classList.contains('js-remove-watched')) {
+
+    if (
+      target.classList.contains('modal-card__watch-btn') &&
+      !watched.includes(getId)
+    ) {
+      watched.push(getId);
+      localStorage.setItem('watched', JSON.stringify(watched));
       target.addEventListener('click', onRemoveBtnClick);
       target.textContent = 'remove from watched';
       target.classList.remove('js-remove-watched');
