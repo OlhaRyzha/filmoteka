@@ -1,9 +1,6 @@
 'use strict';
 
-import {
-  watched,
-  queue
-} from './card-info-show';
+import { watched, queue } from './card-info-show';
 
 export function createCardInfo(info) {
   const {
@@ -25,7 +22,7 @@ export function createCardInfo(info) {
 
   const genreString = genreArr.join(', ');
 
-  return `<div class="modal-card__poster" >
+  return `<div class="modal-card__poster" data-id='${id}'>
                 <img src="${
                   'https://image.tmdb.org/t/p/original' + poster_path
                 }" alt="${title + 'poster'}">
