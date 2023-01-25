@@ -108,7 +108,7 @@
     display: inline-flex;
     min-width: 264px;
     height: 373px;
-
+    margin-bottom: 0;
     & img {
       max-height: 100%;
       object-fit: cover;
@@ -220,6 +220,7 @@
   @media screen and (min-width: 1024px) {
     justify-content: flex-start;
     gap: 15px;
+    margin-left: 8px;
   }
 }
 
