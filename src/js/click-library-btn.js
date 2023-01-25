@@ -6,8 +6,7 @@ import { createCardInfo } from './card-info';
 import localStorageService from './localstorage.js';
 import { createCardById } from './library-create-card';
 import { showLoader, hideLoader } from './loaders';
-import Pagination from 'tui-pagination';
-import 'tui-pagination/dist/tui-pagination.min.css';
+import {getPagination}  from './pagination-ilibrary';
 
 const galleryEl = document.querySelector('.library-film-card__list');
 const libraryBtn = document.querySelector('.library__js');
@@ -16,11 +15,12 @@ const footer = document.querySelector('.footer__container');
 
 
 const theMovieById = new ThemoviedbAPI();
-libraryBtn.addEventListener('click', onLibraryBtnClick);
+onLibraryBtnClick()
+
  
 export async function onLibraryBtnClick(){
   showLoader();
-
+ 
   galleryEl.innerHTML ='';
   const watchedMovies = localStorageService.load('watched');
  
@@ -51,37 +51,12 @@ export async function onLibraryBtnClick(){
 
       galleryEl.insertAdjacentHTML('afterbegin', createCardById(data));
 
-      async function getPagination() {
-        try {
-          const results = watchedMovies.length;
-      
-          const options = {
-            totalItems: results,
-            itemsPerPage: 20,
-            visiblePages: 5,
-          };
-      
-          const pagination = new Pagination(container, options);
-          const containerfirst = document.querySelector('.tui-page-btn.tui-first');
-          const containerlast = document.querySelector('.tui-page-btn.tui-last')
-          containerlast.innerHTML = `${total_results < 20 ? total_results : Math.round(options.totalItems / options.itemsPerPage)}`;
-          containerfirst.innerHTML = '1';
-          pagination.on('afterMove', function (eventData) {
-      
-            theMovieById.page = eventData.page;
-      
-            galleryEl.innerHTML = createCardById(data);
-             
-          });
-        } catch (error) {
-          console.log(error.message);
-        }
-      }
-      
-      getPagination();
+      const results = watchedMovies.length;
+
+      getPagination(results, data)
       
     });
   });
 
-  console.log(watchedMovies);
+  
 }

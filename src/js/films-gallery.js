@@ -37,7 +37,7 @@ async function onFormSubmit(event) {
 
     const filmsByQuery = await themoviedbAPI.fetchFilmByQuery();
     const { results, total_results } = filmsByQuery;
-    console.log(total_results);
+ 
     async function getPagination() {
       try {
         const options = {
