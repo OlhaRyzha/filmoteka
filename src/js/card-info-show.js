@@ -276,6 +276,7 @@ export const queue = localStorageService.load('queue') ? [...localStorageService
       });
   }
 })();
+
 async function onRemoveBtnClick(e) {
   const movieId = e.target.getAttribute('data-id');
   // console.log(localStorageService.load('watched').splice(watched.indexOf(movieId), 0))
