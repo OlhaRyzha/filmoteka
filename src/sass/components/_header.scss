@@ -32,7 +32,6 @@
     }
   }
 }
-
 .header-section {
   position: relative;
 }
@@ -527,15 +526,22 @@
 
 canvas {
   display: block;
-   vertical-align: bottom;
-  }
- .animation {
-   position: relative;
- }
- #particles-js {
-   position: absolute;
-   width: 100%;
-   height: 100%;
-   background-repeat: no-repeat;
-   background-size: cover;
- }
+  vertical-align: bottom;
+}
+.animation {
+  position: relative;
+}
+#particles-js {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  // background-color: #b61924;
+  // background-image: url("");
+  background-repeat: no-repeat;
+  background-size: cover;
+  // background-position: 50% 50%;
+  // top: 0;
+  // bottom: 0;
+  // left: 0;
+  // right: 0;
+}

@@ -21,6 +21,10 @@ function changeTheme() {
 
 function getCurrentTheme(currentTheme) {
   localStorage.setItem('Theme', currentTheme);
+}
+
+function actualTheme() {
+  const savedTheme = localStorage.getItem('Theme');
 
   if (savedTheme === Theme.DARK) {
     bodyEl.classList.add(savedTheme);
