@@ -61,8 +61,8 @@ export function createCardInfo(info) {
   }">${queue.includes(`${id}`) ? 'remove from queue' : 'add to queue'}</button>
                 </div>
                 <ul class = "trailer">
-                <li><h3 class="trailer-title">Watch Trailer</h3></li>
-                <li><button type="button" data-id='${id}' class="trailer-btn"></button></li>
+                <li><h3 class="trailer__title">Watch Trailer</h3></li>
+                <li><button type="button" data-id='${id}' class="trailer-btn-js trailer-btn"></button></li>
                 </ul>
             </div>
             </div>`;

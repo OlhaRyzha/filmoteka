@@ -24,7 +24,7 @@ export const queue = localStorageService.load('queue') ? [...localStorageService
       closeCardInfoEl: document.querySelector('[data-modal-close-card]'),
       modalCardInfo: document.querySelector('[data-modal-card]'),
       modalCardContent: document.querySelector('.modal-card__content'),
-      trailerBtn: document.querySelector('.trailer-btn'),
+      trailerBtn: document.querySelector('.trailer-btn-js'),
       body: document.querySelector('body'),
     };
 
@@ -170,9 +170,7 @@ export const queue = localStorageService.load('queue') ? [...localStorageService
 
 
       const onModalCardContentClick = event => {
-        <<
-        <<
-        << < HEAD
+
         const idEl = event.currentTarget.querySelector('[data-id]');
         const getId = idEl.getAttribute('data-id');
 

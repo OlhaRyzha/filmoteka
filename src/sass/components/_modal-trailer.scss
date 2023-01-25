@@ -1,41 +1,20 @@
-// .backdrop-trailer {
-//     position: fixed;
-//     inset: 0;
-//     display: flex;
-//     padding: 20px;
-//     overflow-y: auto;
-//     background-color: rgba(0, 0, 0, 0.9);
-// }
-
-// .trailer-modal {
-//     position: relative;
-//     width: 280px;
-//     height: 250px;
-//     display: flex;
-//     justify-content: center;
-//     margin: auto;
-// }
-
-// .is-hidden {
-//     opacity: 0;
-//     pointer-events: none;
-// }
-
-// .trailer {
-//     border-radius: 10px;
-//     position: absolute;
-//     top: 0;
-//     left: 0;
-//     width: 100%;
-//     height: 100%;
-// }
-
 .trailer {
     display: flex;
     justify-content: baseline;
     margin-top: 35px;
     gap: 30px;
 }
+
+.trailer__title {
+    display: flex;
+    color: var(--accent-txt-cl);
+    font-size: 18px;
+
+    @media screen and (min-width: 1024px) {
+        font-size: 36px;
+    }
+}
+
 .trailer-btn {
     justify-self: center;
     cursor: pointer;
@@ -64,7 +43,6 @@
     transition: all 400ms cubic-bezier(0.55, 0.055, 0.675, 0.19);
 }
 
-/* пульс */
 .trailer-btn:before {
     content: "";
     position: absolute;
@@ -77,7 +55,6 @@
     border: 5px solid rgba(255, 107, 8, 1);
     top: -40%;
     left: -40%;
-    // background: rgba(198, 86, 0, 0);
 }
 
 @keyframes pulsate1 {
@@ -104,11 +81,4 @@
         opacity: 0;
         box-shadow: none;
     }
-}
-
-.trailer-title {
-    display: flex;
-
-    color: var(--accent-txt-cl);
-    font-size: 18px;
 }
