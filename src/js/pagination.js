@@ -10,13 +10,10 @@ const galleryEl = document.querySelector('.film-card__list');
 
 const container = document.querySelector('#pagination');
 
-// containerlast.innerHTML = '1000'
+
 export async function getPagination() {
   try {
 
-    // if(galleryEl = document.querySelector('.library-film-card__list')){
-    //   onLibraryBtnClick()
-    // }
     const { total_results } = await themoviedb.fetchTrendMovies();
 
     const options = {
