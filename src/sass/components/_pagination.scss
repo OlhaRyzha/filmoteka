@@ -49,6 +49,15 @@ height: 15px;
 
 
 }
+#pagination .tui-first,
+#pagination .tui-last{
+  background: none;
+  background-color: #F7F7F7;
+ color: rgb(39, 38, 38);
+ scale: 0.8;
+ border-radius: 5px;
+
+}
 .tui-pagination .tui-next,
 .tui-pagination .tui-prev{
   background-color: #F7F7F7;

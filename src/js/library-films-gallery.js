@@ -26,6 +26,8 @@ queueBtnEl.addEventListener('click', onQueueBtnClick);
 async function onWatchedBtnClick(event) {
   galleryEl.innerHTML = '';
   showLoader();
+  queueBtnEl.classList.remove('is-active-btn');
+  watchedBtnEl.classList.add('is-active-btn');
  const watchedMovies = localStorageService.load('watched');
  
 
@@ -68,7 +70,10 @@ async function onWatchedBtnClick(event) {
             };
         
             const pagination = new Pagination(container, options);
-        
+            const containerfirst = document.querySelector('.tui-page-btn.tui-first');
+            const containerlast = document.querySelector('.tui-page-btn.tui-last')
+            containerlast.innerHTML = `${results < 20 ? results : Math.round(options.totalItems / options.itemsPerPage)}`;
+            containerfirst.innerHTML = '1';
             pagination.on('afterMove', function (eventData) {
         
               theMovieById.page = eventData.page;
@@ -95,7 +100,8 @@ async function onWatchedBtnClick(event) {
 async function onQueueBtnClick(event) {
   galleryEl.innerHTML = '';
   showLoader();
-
+  queueBtnEl.classList.add('is-active-btn');
+  watchedBtnEl.classList.remove('is-active-btn');
  const queuedMovies = localStorageService.load('queue');
 
  if(!queuedMovies){
@@ -136,7 +142,10 @@ async function onQueueBtnClick(event) {
           };
       
           const pagination = new Pagination(container, options);
-      
+          const containerfirst = document.querySelector('.tui-page-btn.tui-first');
+          const containerlast = document.querySelector('.tui-page-btn.tui-last')
+          containerlast.innerHTML = `${total_results < 20 ? total_results : Math.round(options.totalItems / options.itemsPerPage)}`;
+          containerfirst.innerHTML = '1';
           pagination.on('afterMove', function (eventData) {
       
             theMovieById.page = eventData.page;

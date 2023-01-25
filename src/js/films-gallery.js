@@ -47,7 +47,10 @@ async function onFormSubmit(event) {
         };
 
         const pagination = new Pagination(container, options);
-
+        const containerfirst = document.querySelector('.tui-page-btn.tui-first');
+        const containerlast = document.querySelector('.tui-page-btn.tui-last')
+        containerlast.innerHTML = `${total_results < 20 ? total_results : Math.round(options.totalItems / options.itemsPerPage)}`;
+        containerfirst.innerHTML = '1';
         pagination.on('afterMove', function (eventData) {
           themoviedbAPI.page = eventData.page;
 
