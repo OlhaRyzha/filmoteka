@@ -136,20 +136,39 @@ export const queue = localStorageService.load('queue') ? [...localStorageService
     }
 
     function renderTrailer(data) {
-      console.log('fggg');
-
 
       const instance = basicLightbox.create(
         `<div class="modal-trailer-backdrop">
-          <iframe class="iframe" width="640" height="480" frameborder="0" allowfullscreen allow='autoplay'
-            src="https://www.youtube.com/embed/${data.results[0].key}?autoplay=1" >
+          <iframe class="iframe" width="640" height="480" frameborder="0" 
+            src="https://www.youtube.com/embed/${data.results[0].key}" >
           </iframe>
-    </div>`).show();
+     </div>`, {
+          onShow: (instance) => {
+            // Close when hitting escape.
+            document.onkeydown = function (evt) {
+              evt = evt || window.event;
+              var isEscape = false;
+              if ("key" in evt) {
+                isEscape = (evt.key === "Escape" || evt.key === "Esc");
+              } else {
+                isEscape = (evt.keyCode === 27);
+              }
+              if (isEscape) {
+                instance.close();
+              }
+            };
+          },
+        }
+      ).show();
 
-      // refs.trailerBtn.addEventListener('click', () => {
-      //   instance.show();
+
+
+      // const focusTrailer = instance.show(() => {
+      //   instance.element().querySelector('.basicLightbox__placeholder > *:first-child').focus();
       // });
+
     }
+
 
 
 

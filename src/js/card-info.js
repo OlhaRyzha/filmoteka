@@ -54,7 +54,6 @@ export function createCardInfo(info) {
                 <h3 class="modal-card__about-title">About</h3>
                 <p class="modal-card__about-descr">${overview}</p>
                 <div class="modal-card__buttons">
-                <button type="button" data-id='${id}' class="trailer-btn">Watch Trailer</button>
                      <button type="button" data-id='${id}' class="modal-card__watch-btn ${
     watched.includes(`${id}`) ? '' : 'js-remove-watched'
   }">${
@@ -64,6 +63,10 @@ export function createCardInfo(info) {
     queue.includes(`${id}`) ? '' : 'js-remove-queue'
   }">${queue.includes(`${id}`) ? 'remove from queue' : 'add to queue'}</button>
                 </div>
+                <ul class = "trailer">
+                <li><h3 class="trailer-title">Watch Trailer</h3></li>
+                <li><button type="button" data-id='${id}' class="trailer-btn"></button></li>
+                </ul>
             </div>
             </div>`;
 }

@@ -9,8 +9,7 @@
   background-color: rgba(0, 0, 0, 0.2);
 
   opacity: 1;
-  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
-    visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1), visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
   &.is-hidden {
     visibility: hidden;
@@ -218,7 +217,6 @@
   margin-top: 20px;
   display: flex;
   justify-content: space-between;
-
   @media screen and (min-width: 1024px) {
     justify-content: flex-start;
     gap: 15px;
@@ -236,7 +234,7 @@
   padding-left: 13px;
   padding-right: 13px;
   cursor: pointer;
-  border: 1px solid #000000;
+  border: 1px solid var(--accent-txt-cl);
   background-color: #ffffff;
   color: #000000;
 
