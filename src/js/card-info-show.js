@@ -11,10 +11,8 @@ import {
   showLoader,
   hideLoader
 } from './loaders';
-// import basicLightbox from 'basiclightbox';
 import * as basicLightbox from 'basiclightbox';
 import 'basiclightbox/dist/basicLightbox.min.css';
-
 
 const theMovieById = new ThemoviedbAPI();
 export const watched = localStorageService.load('watched') ? [...localStorageService.load('watched')] : [];
@@ -88,40 +86,6 @@ export const queue = localStorageService.load('queue') ? [...localStorageService
     if (target.classList.contains('trailer-btn')) {
       target.addEventListener('click', onAddTrailerClick);
     }
-    ///var 1
-    // async function onAddTrailerClick(event) {
-    //   const movieId = await event.target.getAttribute('data-id');
-    //   theMovieById
-    //     .fetchFilmInfo(movieId)
-    //     .then(data => {
-    //       // trailer.push(data);
-    //       // console.log(queue);
-    //       // localStorageService.save('queue', queue);
-    //       console.log(movieId);
-    //       getData(id);
-    //     })
-    //     .catch(err => {
-    //       console.log(err);
-    //     });
-    // }
-
-    // async function getData(id) {
-    //   try {
-    //     const {
-    //       data
-    //     } = theMovieById.fetchTrailer(id);
-    //     if (data.results === null) {
-    //       return;
-    //     }
-    //     return data;
-    //     console.log(data);
-    //     // modalEL.insertAdjacentHTML('beforeend', createModalTrailerMarkup(data.results[0]));
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // }
-
-    ///var 2
 
     async function onAddTrailerClick(event) {
       const movieId = event.target.getAttribute('data-id');
@@ -160,21 +124,11 @@ export const queue = localStorageService.load('queue') ? [...localStorageService
           },
         }
       ).show();
-
-
-
       // const focusTrailer = instance.show(() => {
       //   instance.element().querySelector('.basicLightbox__placeholder > *:first-child').focus();
       // });
 
     }
-
-
-
-
-
-
-
 
 
     async function onAddQueueBtnClick() {
@@ -200,38 +154,61 @@ export const queue = localStorageService.load('queue') ? [...localStorageService
   };
 
   const onModalCardContentClick = event => {
+    const idEl = event.currentTarget.querySelector('[data-id]');
+    const getId = idEl.getAttribute('data-id');
+
     const {
       target
     } = event;
     if (target.nodeName !== 'BUTTON') {
       return;
     }
-    if (target.classList.contains('js-remove-watched')) {
-      target.addEventListener('click', onRemoveBtnClick)
+
+    if (
+      target.classList.contains('modal-card__watch-btn') &&
+      !watched.includes(getId)
+    ) {
+      watched.push(getId);
+      localStorage.setItem('watched', JSON.stringify(watched));
+      target.addEventListener('click', onRemoveBtnClick);
       target.textContent = 'remove from watched';
       target.classList.remove('js-remove-watched');
 
       return;
-    } else if (
-      !target.classList.contains('js-remove-watched') &&
-      target.classList.contains('modal-card__watch-btn')
+    }
+
+    if (
+      target.classList.contains('modal-card__watch-btn') &&
+      watched.includes(getId)
     ) {
+      watched.splice(watched.indexOf(getId), 1);
+      localStorage.setItem('watched', JSON.stringify(watched));
       target.textContent = 'add to watched';
       target.classList.add('js-remove-watched');
 
       return;
     }
 
-    if (target.classList.contains('js-remove-queue')) {
+    if (
+      target.classList.contains('modal-card__queue-btn') &&
+      !queue.includes(getId)
+    ) {
+      queue.push(getId);
+      localStorage.setItem('queue', JSON.stringify(queue));
       target.textContent = 'remove from queue';
       target.classList.remove('js-remove-queue');
       return;
-    } else if (
-      !target.classList.contains('js-remove-queue') &&
-      target.classList.contains('modal-card__queue-btn')
+    }
+
+    if (
+      target.classList.contains('modal-card__queue-btn') &&
+      queue.includes(getId)
     ) {
+      queue.splice(queue.indexOf(getId), 1);
+      localStorage.setItem('queue', JSON.stringify(queue));
       target.textContent = 'add to queue';
       target.classList.add('js-remove-queue');
+
       return;
     }
   };
@@ -246,13 +223,11 @@ export const queue = localStorageService.load('queue') ? [...localStorageService
     if (queue.includes(movieId)) {
       return;
     }
-    queue.push(movieId);
+
     theMovieById
       .fetchFilmInfo(movieId)
       .then(data => {
-        console.log(queue);
         localStorageService.save('queue', queue);
-        // console.log(queue);
       })
       .catch(err => {
         console.log(err);
@@ -263,13 +238,11 @@ export const queue = localStorageService.load('queue') ? [...localStorageService
     if (watched.includes(movieId)) {
       return;
     }
-    watched.push(movieId);
 
     await theMovieById
       .fetchFilmInfo(movieId)
       .then(data => {
         localStorageService.save('watched', watched);
-        // console.log(localStorageService.load('watched'));
       })
       .catch(err => {
         console.log(err);
@@ -280,5 +253,4 @@ export const queue = localStorageService.load('queue') ? [...localStorageService
 async function onRemoveBtnClick(e) {
   const movieId = e.target.getAttribute('data-id');
   // console.log(localStorageService.load('watched').splice(watched.indexOf(movieId), 0))
-
 }
