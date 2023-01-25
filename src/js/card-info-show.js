@@ -1,20 +1,23 @@
 'use strict';
 
-import { ThemoviedbAPI } from './api';
-import { createCardInfo } from './card-info';
+import {
+  ThemoviedbAPI
+} from './api';
+import {
+  createCardInfo
+} from './card-info';
 import localStorageService from './localstorage.js';
-import { showLoader, hideLoader } from './loaders';
+import {
+  showLoader,
+  hideLoader
+} from './loaders';
 // import basicLightbox from 'basiclightbox';
 import * as basicLightbox from 'basiclightbox';
 import 'basiclightbox/dist/basicLightbox.min.css';
 
 const theMovieById = new ThemoviedbAPI();
-export const watched = localStorageService.load('watched')
-  ? [...localStorageService.load('watched')]
-  : [];
-export const queue = localStorageService.load('queue')
-  ? [...localStorageService.load('queue')]
-  : [];
+export const watched = localStorageService.load('watched') ? [...localStorageService.load('watched')] : [];
+export const queue = localStorageService.load('queue') ? [...localStorageService.load('queue')] : [];
 
 (() => {
   const refs = {
@@ -69,7 +72,10 @@ export const queue = localStorageService.load('queue')
   };
 
   const onModalCardInfoClick = event => {
-    const { target, currentTarget } = event;
+    const {
+      target,
+      currentTarget
+    } = event;
 
     if (target.classList.contains('modal-card__watch-btn')) {
       target.addEventListener('click', onAddWatchedBtnClick);
@@ -95,21 +101,35 @@ export const queue = localStorageService.load('queue')
     }
 
     function renderTrailer(data) {
-      console.log('fggg');
-
-      const instance = basicLightbox
-        .create(
-          `<div class="modal-trailer-backdrop">
-          <iframe class="iframe" width="640" height="480" frameborder="0" allowfullscreen allow='autoplay'
-            src="https://www.youtube.com/embed/${data.results[0].key}?autoplay=1" >
+      const instance = basicLightbox.create(
+        `<div class="modal-trailer-backdrop">
+          <iframe class="iframe" width="640" height="480" frameborder="0" 
+            src="https://www.youtube.com/embed/${data.results[0].key}" >
           </iframe>
-    </div>`
-        )
-        .show();
+     </div>`, {
 
-      // refs.trailerBtn.addEventListener('click', () => {
-      //   instance.show();
+          onShow: (instance) => {
+            // Close when hitting escape.
+            document.onkeydown = function (evt) {
+              evt = evt || window.event;
+              var isEscape = false;
+              if ("key" in evt) {
+                isEscape = (evt.key === "Escape" || evt.key === "Esc");
+              } else {
+                isEscape = (evt.keyCode === 27);
+              }
+              if (isEscape) {
+                instance.close();
+              }
+            };
+          },
+        }
+      ).show();
+      // const focusTrailer = instance.show(() => {
+      //   instance.element().querySelector('.basicLightbox__placeholder > *:first-child').focus();
+
       // });
+
     }
 
     async function onAddQueueBtnClick() {
@@ -138,7 +158,9 @@ export const queue = localStorageService.load('queue')
     const idEl = event.currentTarget.querySelector('[data-id]');
     const getId = idEl.getAttribute('data-id');
 
-    const { target } = event;
+    const {
+      target
+    } = event;
     if (target.nodeName !== 'BUTTON') {
       return;
     }
