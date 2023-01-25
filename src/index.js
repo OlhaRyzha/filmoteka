@@ -11,3 +11,7 @@ import './js/films-gallery-trends';
 import './js/localStorage';
 import './js/switch';
 import './js/card-info-show';
+import './js/animation';
+
+
+

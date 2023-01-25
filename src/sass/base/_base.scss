@@ -99,9 +99,14 @@ body.dark-theme {
       color: var(--light-txt-color);
     }
   }
-
+  & .films-gallery{
+    position: relative;
+    background-color: var(--bg-color);
+  }
   & #pagination {
+
     & .tui-page-btn {
+
       transition: background-color 500ms;
       color: #fff;
 

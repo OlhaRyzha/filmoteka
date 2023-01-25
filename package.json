@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "axios": "^1.2.3",
+    "basiclightbox": "^5.0.4",
     "caniuse-lite": "^1.0.30001446",
     "modern-normalize": "^1.1.0",
     "notiflix": "^3.2.6",

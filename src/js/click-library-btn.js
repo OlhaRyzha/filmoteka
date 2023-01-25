@@ -6,33 +6,38 @@ import { createCardInfo } from './card-info';
 import localStorageService from './localstorage.js';
 import { createCardById } from './library-create-card';
 import { showLoader, hideLoader } from './loaders';
-import Pagination from 'tui-pagination';
-import 'tui-pagination/dist/tui-pagination.min.css';
+import { getPagination } from './pagination-ilibrary';
 
 const galleryEl = document.querySelector('.library-film-card__list');
 const libraryBtn = document.querySelector('.library__js');
 const container = document.querySelector('#pagination');
-const footer = document.querySelector('.footer__container');
-
-
+const footer = document.querySelector('.footer');
+const main = document.querySelector('main');
+const watchedBtnEl = document.querySelector('.js-watched');
+const queueBtnEl = document.querySelector('.js-queue');
 const theMovieById = new ThemoviedbAPI();
-libraryBtn.addEventListener('click', onLibraryBtnClick);
- 
-export async function onLibraryBtnClick(){
-  showLoader();
+onLibraryBtnClick();
 
-  galleryEl.innerHTML ='';
+export async function onLibraryBtnClick() {
+  showLoader();
+  queueBtnEl.classList.remove('is-active-btn');
+  watchedBtnEl.classList.add('is-active-btn');
+  galleryEl.innerHTML = '';
   const watchedMovies = localStorageService.load('watched');
- 
-  if(!watchedMovies){
+
+  if (!watchedMovies) {
     Notify.failure(
       'Sorry, there are no films matching your search query. Please try again.'
     );
+
     hideLoader();
 
-    galleryEl.innerHTML = `<div class="info-card">
+    main.innerHTML = `<div class="info-card">
     <p>you don't have any movies to watch yet((</p>
-  </div>`
+  </div>`;
+
+    main.style.height = '738px';
+
     container.classList.add('visually-hidden');
     footer.style.position = 'fixed';
     footer.style.bottom = '0';
@@ -40,48 +45,32 @@ export async function onLibraryBtnClick(){
     footer.style.transform = 'translateX(-50%)';
   }
   hideLoader();
-  watchedMovies.map(el => {
-    theMovieById.fetchFilmInfo(el).then(data => {
 
-      const arrId = data.genres.map(el => el.id);
-      data.genreNames = arrId.map(genreId => {
-        return theMovieById.genresObject[genreId] || 'Unknown genre';
-      });
+  if (watchedMovies.length > 6) {
+    const filmCards = await createFilmsMarkupByIds(watchedMovies.slice(0, 6));
 
+    galleryEl.insertAdjacentHTML('afterbegin', filmCards);
 
-      galleryEl.insertAdjacentHTML('afterbegin', createCardById(data));
+    getPagination(watchedMovies);
 
-      async function getPagination() {
-        try {
-          const results = watchedMovies.length;
-      
-          const options = {
-            totalItems: results,
-            itemsPerPage: 20,
-            visiblePages: 5,
-          };
-      
-          const pagination = new Pagination(container, options);
-          const containerfirst = document.querySelector('.tui-page-btn.tui-first');
-          const containerlast = document.querySelector('.tui-page-btn.tui-last')
-          containerlast.innerHTML = `${total_results < 20 ? total_results : Math.round(options.totalItems / options.itemsPerPage)}`;
-          containerfirst.innerHTML = '1';
-          pagination.on('afterMove', function (eventData) {
-      
-            theMovieById.page = eventData.page;
-      
-            galleryEl.innerHTML = createCardById(data);
-             
-          });
-        } catch (error) {
-          console.log(error.message);
-        }
-      }
-      
-      getPagination();
-      
+    return;
+  }
+
+  const filmCards = await createFilmsMarkupByIds(watchedMovies);
+
+  galleryEl.insertAdjacentHTML('afterbegin', filmCards);
+}
+
+export async function createFilmsMarkupByIds(filmIDs) {
+  const films = await Promise.all(
+    filmIDs.map(theMovieById.fetchFilmInfo.bind(theMovieById))
+  );
+
+  return films.reduce((filmCards, film) => {
+    const arrId = film.genres.map(el => el.id);
+    film.genreNames = arrId.map(genreId => {
+      return theMovieById.genresObject[genreId] || 'Unknown genre';
     });
-  });
-
-  console.log(watchedMovies);
+    return filmCards + createCardById(film);
+  }, '');
 }
