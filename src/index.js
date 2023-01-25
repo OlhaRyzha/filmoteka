@@ -11,3 +11,8 @@ import './js/films-gallery-trends';
 import './js/localStorage';
 import './js/switch';
 import './js/card-info-show';
+<<<<<<< HEAD
+=======
+import './js/animation';
+
+>>>>>>> 7283fb2 (added animation)
