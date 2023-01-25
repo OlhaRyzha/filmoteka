@@ -27,7 +27,7 @@ export async function getPagination(results, data) {
 
     pagination.on('afterMove', function (eventData) {
 
-      theMovieById .page = eventData.page;
+      theMovieById.page = eventData.page;
 
       galleryEl.innerHTML = createCardById(data);
        
