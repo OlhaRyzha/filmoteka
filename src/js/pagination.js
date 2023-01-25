@@ -3,14 +3,17 @@ import 'tui-pagination/dist/tui-pagination.min.css';
 import { ThemoviedbAPI } from './api';
 import { createFilmCards } from './film-card';
 import Notiflix from 'notiflix';
+import { onLibraryBtnClick } from './api';
 
 const themoviedb = new ThemoviedbAPI();
 const galleryEl = document.querySelector('.film-card__list');
 
 const container = document.querySelector('#pagination');
 
+
 export async function getPagination() {
   try {
+
     const { total_results } = await themoviedb.fetchTrendMovies();
 
     const options = {
@@ -21,9 +24,15 @@ export async function getPagination() {
 
     const pagination = new Pagination(container, options);
 
+    const containerfirst = document.querySelector('.tui-page-btn.tui-first');
+    const containerlast = document.querySelector('.tui-page-btn.tui-last')
+    containerlast.innerHTML = `${total_results < 20 ? total_results : Math.round(options.totalItems / options.itemsPerPage)}`;
+    containerfirst.innerHTML = '1';
+
     pagination.on('afterMove', function (eventData) {
 
       themoviedb.page = eventData.page;
+      
 
       themoviedb
         .fetchTrendMovies()
@@ -35,6 +44,7 @@ export async function getPagination() {
           });
 
           galleryEl.innerHTML = createFilmCards(data.results);
+       
         })
         .catch(err => {
           console.log(err);

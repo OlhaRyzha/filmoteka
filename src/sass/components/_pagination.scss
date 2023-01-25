@@ -5,7 +5,10 @@ margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 16px
+  gap: 6px;
+  @media screen and (min-width: 768px) {
+    gap:16px;
+  }
 }
 
 
@@ -28,6 +31,7 @@ list-style-type: none;
     background: #ff6b08;
     color: white;
     stroke: white;
+   
   }
 }
 
@@ -47,6 +51,15 @@ background: url('/src/images/arrow-right-solid.svg') no-repeat;
 width: 15px;
 height: 15px;
 
+
+}
+#pagination .tui-first,
+#pagination .tui-last{
+  background: none;
+  background-color: #F7F7F7;
+ color: rgb(39, 38, 38);
+ scale: 0.8;
+ border-radius: 5px;
 
 }
 .tui-pagination .tui-next,

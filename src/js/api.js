@@ -9,7 +9,8 @@ export class ThemoviedbAPI {
     this.query = null;
     this.page = 1;
 
-    }
+
+  }
 
 
 
@@ -25,8 +26,10 @@ export class ThemoviedbAPI {
         },
       });
 
-      const { data } = response;
-   
+      const {
+        data
+      } = response;
+
 
       return data;
     } catch (err) {
@@ -35,7 +38,7 @@ export class ThemoviedbAPI {
   }
 
   async fetchGenresMovieList() {
-    if(this.genresObject !== undefined){
+    if (this.genresObject !== undefined) {
       return
     }
     try {
@@ -46,10 +49,18 @@ export class ThemoviedbAPI {
         },
       });
 
-      const { genres } = response.data;
+      const {
+        genres
+      } = response.data;
       // console.log(genres);
-     
-      this.genresObject = genres .reduce((acum, { id, name }) => ({...acum, [id]: name}), {});
+
+      this.genresObject = genres.reduce((acum, {
+        id,
+        name
+      }) => ({
+        ...acum,
+        [id]: name
+      }), {});
 
       localStorage.setItem('genre', JSON.stringify(genres));
       return genres;
@@ -61,8 +72,10 @@ export class ThemoviedbAPI {
   async fetchTrendMovies() {
     try {
       await this.fetchGenresMovieList();
-      
-      const {data} = await axios.get('/trending/movie/day', {
+
+      const {
+        data
+      } = await axios.get('/trending/movie/day', {
         params: {
           api_key: ThemoviedbAPI.API_KEY,
           page: this.page,
@@ -74,22 +87,54 @@ export class ThemoviedbAPI {
       console.log(err);
     }
   }
-  
+
 
   async fetchFilmInfo(id) {
     try {
+      await this.fetchGenresMovieList();
       const response = await axios.get(`/movie/${id}`, {
         params: {
           api_key: ThemoviedbAPI.API_KEY,
           language: 'en-US',
         },
       });
-      const { data } = response;
+      const {
+        data
+      } = response;
 
       return data;
     } catch (err) {
       console.log(err);
     }
   }
-}
 
+  ///var 1
+  // async fetchTrailer(id) {
+  //   try {
+  //     const response = await axios.get(`/movie/${id}/videos`, {
+  //       params: {
+  //         api_key: ThemoviedbAPI.API_KEY,
+  //         language: 'en-US',
+  //       },
+  //     });
+  //     const {
+  //       data
+  //     } = response;
+
+  //     return data;
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
+  ///var 2
+  async fetchTrailer(id) {
+    try {
+      const url = `https://api.themoviedb.org/3/movie/${id}/videos?api_key=f2a6d17811dc6597e4e94000fd1f12ef&language=en-US`;
+      const response = await fetch(url);
+      const data = response.json();
+      return data;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+}

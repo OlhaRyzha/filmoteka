@@ -1,51 +1,63 @@
 'use strict';
+import 'notiflix/dist/notiflix-3.2.6.min.css';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { showLoader, hideLoader } from './loaders';
 import localStorageService from './localStorage';
-import { createFilmCards } from './film-card';
+import { createCardById } from './library-create-card';
+import { ThemoviedbAPI } from './api';
+import { getPagination } from './pagination-ilibrary';
+import { onLibraryBtnClick } from './click-library-btn';
 
-const galleryEl = document.querySelector('.film-card__list');
+const galleryEl = document.querySelector('.library-film-card__list');
 const watchedBtnEl = document.querySelector('.js-watched');
 const queueBtnEl = document.querySelector('.js-queue');
+const container = document.querySelector('#pagination');
+const footer = document.querySelector('.footer');
+const main = document.querySelector('main');
 
-if (!watchedBtnEl || !queueBtnEl) {
-  return;
-}
+const theMovieById = new ThemoviedbAPI();
 
+watchedBtnEl.addEventListener('click', onLibraryBtnClick);
+queueBtnEl.addEventListener('click', onQueueBtnClick);
 
-// watchedBtnEl.addEventListener('click', onWatchedBtnClick);
-// queueBtnEl.addEventListener('click', onQueueBtnClick);
-
-function onWatchedBtnClick(event) {
+async function onQueueBtnClick() {
   showLoader();
+  queueBtnEl.classList.add('is-active-btn');
+  watchedBtnEl.classList.remove('is-active-btn');
+  galleryEl.innerHTML = '';
+  const queuedMovies = localStorageService.load('queue');
 
-  const watchedMovies = localStorageService.load('watched');
-  console.log(watchedMovies);
+  if (!queuedMovies) {
+    Notify.failure(
+      'Sorry, there are no films matching your search query. Please try again.'
+    );
 
-  if (watchedMovies === undefined) {
     hideLoader();
-    return;
-  }
 
-  for (const prop in watchedMovies) {
-    galleryEl.insertAdjacentHTML('beforeend', createFilmCards(prop));
+    main.innerHTML = `<div class="info-card">
+    <p>you don't have any movies to watch yet((</p>
+  </div>`;
+    main.style.height = '738px';
+    container.classList.add('visually-hidden');
+    footer.style.position = 'fixed';
+    footer.style.bottom = '0';
+    footer.style.left = '50%';
+    footer.style.transform = 'translateX(-50%)';
   }
 
   hideLoader();
-}
+  queuedMovies.map(el => {
+    theMovieById.fetchFilmInfo(el).then(data => {
+      const arrId = data.genres.map(el => el.id);
+      data.genreNames = arrId.map(genreId => {
+        return theMovieById.genresObject[genreId] || 'Unknown genre';
+      });
 
-function onQueueBtnClick(event) {
-  showLoader();
+      galleryEl.insertAdjacentHTML('afterbegin', createCardById(data));
 
-  const moviesInQueue = localStorageService.load('queue');
+      const results = queuedMovies.length;
 
-  if (moviesInQueue === undefined) {
-    hideLoader();
-    return;
-  }
-
-  for (const prop in moviesInQueue) {
-    galleryEl.insertAdjacentHTML('beforeend', createFilmCards(prop));
-  }
-
-  hideLoader();
+      getPagination(results, data);
+    });
+  });
 }

@@ -11,14 +11,120 @@ body {
   line-height: calc(16 / 12);
   color: var(--light-txt-color);
   background-color: var(--accent-bg-cl);
-  
 }
+
 // body.dark-theme > .films-gallery{
 //   background-color: rgb(95, 94, 94);
 // }
 // body.light-theme > .films-gallery{
 //   background-color: var(--accent-bg-cl);
 // }
+
+body.light-theme {
+  background-color: var(--accent-bg-color);
+}
+
+body.dark-theme {
+  background-color: var(--dark-bg-color);
+
+  .film-card__title {
+    color: var(--cards-txt-color);
+  }
+
+  // .film-card__item {
+  //   background-color: #f7f7f7;
+  //   border-radius: 10px 0 10px 0;
+  // }
+  // .film-card__poster {
+  //   border-radius: 10px 0 0 0;
+  // }
+}
+
+.light-theme {
+  & main {
+    background-color: #fff;
+    transition: background-color 500ms;
+  }
+  & footer {
+    transition: background-color 500ms, color 500ms;
+  }
+}
+
+.dark-theme {
+  main {
+    background-color: var(--bg-color);
+    transition: background-color 500ms;
+  }
+
+  & footer {
+    background-color: var(--dark-bg-footer);
+    transition: background-color 500ms, color 500ms;
+
+    & .footer__item {
+      color: var(--light-txt-color);
+    }
+
+    & .footer__btn {
+      color: var(--cards-txt-color);
+    }
+  }
+
+  & .modal-card {
+    background-color: var(--dark-bg-footer);
+
+    &__title {
+      color: var(--light-txt-color);
+    }
+
+    &__about-title {
+      color: var(--light-txt-color);
+    }
+    &__about-descr {
+      color: #8c8c8c;
+    }
+    & .modal-card__info-title-list p {
+      color: var(--light-txt-color);
+    }
+  }
+  & .films-gallery{
+    position: relative;
+    background-color: var(--bg-color);
+  }
+  & #pagination {
+
+    & .tui-page-btn {
+
+      transition: background-color 500ms;
+      color: #fff;
+
+      &.tui-last-child .tui-ico-ellip {
+        color: #fff;
+      }
+
+      &.tui-first {
+        background-color: var(--dark-bg-footer);
+      }
+
+      &.tui-prev {
+        background-color: var(--dark-bg-footer);
+      }
+
+      &.tui-next {
+        background-color: var(--dark-bg-footer);
+      }
+
+      &.tui-last {
+        background-color: var(--dark-bg-footer);
+      }
+
+      &.tui-is-disabled {
+        background-color: #333;
+        color: #8c8c8c;
+      }
+    }
+  }
+}
+
 ul {
   list-style-type: none;
 }
@@ -85,4 +191,22 @@ img {
     background-color: var(--btn-dis-bg-color);
     border: 1px solid #ffffff;
   }
+}
+.info-card {
+  width: 85%;
+  text-align: center;
+  max-width: 400px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // width: 400px;
+  height: 150px;
+  position: absolute;
+  border: 1px solid #b8b4b4;
+  border-radius: 10px;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: black;
 }
