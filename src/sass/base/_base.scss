@@ -83,6 +83,10 @@ body.dark-theme {
 
     & .footer__btn {
       color: var(--cards-txt-color);
+      transition: color 200ms;
+      &:hover {
+        color: var(--btn-bg-color);
+      }
     }
   }
 
