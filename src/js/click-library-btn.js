@@ -15,42 +15,36 @@ const footer = document.querySelector('.footer');
 const main = document.querySelector('main');
 const watchedBtnEl = document.querySelector('.js-watched');
 const queueBtnEl = document.querySelector('.js-queue');
+const infoCard = document.querySelector('.info-card');
 const theMovieById = new ThemoviedbAPI();
 onLibraryBtnClick();
 
 export async function onLibraryBtnClick() {
+  container.classList.remove('visually-hidden');
   showLoader();
   queueBtnEl.classList.remove('is-active-btn');
   watchedBtnEl.classList.add('is-active-btn');
   galleryEl.innerHTML = '';
   const watchedMovies = localStorageService.load('watched');
 
-  if (!watchedMovies) {
+  if (!watchedMovies || watchedMovies.length < 1) {
     Notify.failure(
       'Sorry, there are no films matching your search query. Please try again.'
     );
 
     hideLoader();
-
-    main.innerHTML = `<div class="info-card">
-    <p>you don't have any movies to watch yet((</p>
-  </div>`;
-
-    main.style.height = '738px';
-
-    container.classList.add('visually-hidden');
-    footer.style.position = 'fixed';
-    footer.style.bottom = '0';
-    footer.style.left = '50%';
-    footer.style.transform = 'translateX(-50%)';
+    infoCard.classList.remove('visually-hidden');
+    galleryEl.style.height = '438px';
+    return
+  
   }
   hideLoader();
-
+  infoCard.classList.add('visually-hidden');
+  galleryEl.style.height = 'fit-content';
   if (watchedMovies.length > 6) {
     const filmCards = await createFilmsMarkupByIds(watchedMovies.slice(0, 6));
 
     galleryEl.insertAdjacentHTML('afterbegin', filmCards);
-
     getPagination(watchedMovies);
 
     return;
@@ -62,9 +56,14 @@ export async function onLibraryBtnClick() {
 }
 
 export async function createFilmsMarkupByIds(filmIDs) {
+
+  // if(filmIDs.length < 1){
+  //   return
+  // }
   const films = await Promise.all(
     filmIDs.map(theMovieById.fetchFilmInfo.bind(theMovieById))
   );
+
 
   return films.reduce((filmCards, film) => {
     const arrId = film.genres.map(el => el.id);

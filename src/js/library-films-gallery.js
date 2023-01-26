@@ -14,51 +14,48 @@ const watchedBtnEl = document.querySelector('.js-watched');
 const queueBtnEl = document.querySelector('.js-queue');
 const container = document.querySelector('#pagination');
 const footer = document.querySelector('.footer');
-const main = document.querySelector('main');
+const infoCard = document.querySelector('.info-card');
 
 const theMovieById = new ThemoviedbAPI();
 
 watchedBtnEl.addEventListener('click', onLibraryBtnClick);
-// queueBtnEl.addEventListener('click', onQueueBtnClick);
+queueBtnEl.addEventListener('click', onQueueBtnClick);
 
-// async function onQueueBtnClick() {
-//   showLoader();
-//   queueBtnEl.classList.add('is-active-btn');
-//   watchedBtnEl.classList.remove('is-active-btn');
-//   galleryEl.innerHTML = '';
-//   const queuedMovies = localStorageService.load('queue');
+async function onQueueBtnClick() {
+  galleryEl.innerHTML = '';
+  container.classList.add('visually-hidden');
+   showLoader();
+   queueBtnEl.classList.add('is-active-btn');
+   watchedBtnEl.classList.remove('is-active-btn');
+  const queuedMovies = localStorageService.load('queue');
 
-//   if (!queuedMovies) {
-//     Notify.failure(
-//       'Sorry, there are no films matching your search query. Please try again.'
-//     );
+  if (!queuedMovies || queuedMovies.length < 1) {
+    Notify.failure(
+      'Sorry, there are no films matching your search query. Please try again.'
+    );
 
-//     hideLoader();
+    hideLoader();
+    infoCard.classList.remove('visually-hidden');
+    galleryEl.style.height = '438px';
+    return
+  
+  }
 
-//     main.innerHTML = `<div class="info-card">
-//     <p>you don't have any movies to watch yet((</p>
-//   </div>`;
-//     main.style.height = '738px';
-//     container.classList.add('visually-hidden');
-//     footer.style.position = 'fixed';
-//     footer.style.bottom = '0';
-//     footer.style.left = '50%';
-//     footer.style.transform = 'translateX(-50%)';
-//   }
+  hideLoader();
+  infoCard.classList.add('visually-hidden');
+  galleryEl.style.height = 'fit-content';
 
-//   hideLoader();
+  if (queuedMovies.length > 6) {
+    const filmCards = await createFilmsMarkupByIds(queuedMovies.slice(0, 6));
 
-//   if (queuedMovies.length > 6) {
-//     const filmCards = await createFilmsMarkupByIds(queuedMovies.slice(0, 6));
+    galleryEl.insertAdjacentHTML('afterbegin', filmCards);
 
-//     galleryEl.insertAdjacentHTML('afterbegin', filmCards);
+    getPagination(queuedMovies);
 
-//     getPagination(queuedMovies);
+    return;
+  }
 
-//     return;
-//   }
+  const filmCards = await createFilmsMarkupByIds(queuedMovies);
 
-//   const filmCards = await createFilmsMarkupByIds(queuedMovies);
-
-//   galleryEl.insertAdjacentHTML('afterbegin', filmCards);
-// }
+  galleryEl.insertAdjacentHTML('afterbegin', filmCards);
+}
