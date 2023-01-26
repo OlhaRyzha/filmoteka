@@ -2,7 +2,7 @@
 
 import { ThemoviedbAPI } from './api';
 import { createCardInfo } from './card-info';
-import localStorageService from './localstorage.js';
+import { localStorageService} from './localstorage.js';
 import { showLoader, hideLoader } from './loaders';
 import * as basicLightbox from 'basiclightbox';
 import 'basiclightbox/dist/basicLightbox.min.css';
