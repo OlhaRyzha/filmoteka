@@ -33,10 +33,10 @@ export async function onLibraryBtnClick() {
     Notify.failure(
       'Sorry, there are no films matching your search query. Please try again.'
     );
-
+    container.classList.add('visually-hidden');
     hideLoader();
     infoCard.classList.remove('visually-hidden');
-    galleryEl.style.height = '438px';
+    galleryEl.style.height = '600px';
     
     return
   
@@ -48,6 +48,7 @@ export async function onLibraryBtnClick() {
     footer.style.transform = 'translateX(-50%)';
   infoCard.classList.add('visually-hidden');
   galleryEl.style.height = 'fit-content';
+
   if (watchedMovies.length > 6) {
     const filmCards = await createFilmsMarkupByIds(watchedMovies.slice(0, 6));
 

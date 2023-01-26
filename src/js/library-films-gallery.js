@@ -36,10 +36,10 @@ async function onQueueBtnClick() {
     Notify.failure(
       'Sorry, there are no films matching your search query. Please try again.'
     );
-
+    qPagination.classList.add('visually-hidden');
     hideLoader();
     infoCard.classList.remove('visually-hidden');
-    galleryEl.style.height = '438px';
+    galleryEl.style.height = '600px';
     return
   
   }
