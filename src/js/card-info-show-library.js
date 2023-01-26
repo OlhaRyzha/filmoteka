@@ -1,9 +1,11 @@
 'use strict';
 
 import { ThemoviedbAPI } from './api';
-import { createCardInfo } from './card-info';
+import { createCardInfo } from './card-info-library';
 import localStorageService from './localstorage.js';
 import { showLoader, hideLoader } from './loaders';
+import { createFilmsMarkupByIds } from './click-library-btn';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import * as basicLightbox from 'basiclightbox';
 import 'basiclightbox/dist/basicLightbox.min.css';
 
@@ -23,6 +25,11 @@ export const queue = localStorageService.load('queue')
     modalCardContent: document.querySelector('.modal-card__content'),
     trailerBtn: document.querySelector('.trailer-btn'),
     body: document.querySelector('body'),
+    galleryEl: document.querySelector('.library-film-card__list'),
+    watchedBtnEl: document.querySelector('.js-watched'),
+    queueBtnEl: document.querySelector('.js-queue'),
+    qPagination: document.querySelector('#q-pagination'),
+    infoCard: document.querySelector('.info-card'),
   };
 
   let watchBtn;
@@ -30,7 +37,6 @@ export const queue = localStorageService.load('queue')
 
   const onOpenCardInfoElClick = async event => {
     if (event.target.nodeName !== 'UL') {
-      showLoader();
       refs.modalCardInfo.classList.remove('is-hidden');
       refs.body.classList.add('no-scroll');
       document.addEventListener('keydown', onEscKeyBtnPress);
@@ -41,7 +47,6 @@ export const queue = localStorageService.load('queue')
         .fetchFilmInfo(movieId)
         .then(data => {
           refs.modalCardContent.innerHTML = createCardInfo(data);
-          hideLoader();
           watchBtn = document.querySelector('.modal-card__watch-btn');
           watchBtn.addEventListener('click', onAddWatchedBtnClick);
 
@@ -97,7 +102,7 @@ export const queue = localStorageService.load('queue')
       const instance = basicLightbox
         .create(
           `<div class="modal-trailer-backdrop">
-          <iframe class="iframe" width="640" height="480" frameborder="0" 
+          <iframe class="iframe" width="640" height="480" frameborder="0"
             src="https://www.youtube.com/embed/${data.results[0].key}" >
           </iframe>
      </div>`,
@@ -141,7 +146,7 @@ export const queue = localStorageService.load('queue')
     onCloseCardInfoElClick();
   };
 
-  const onModalCardContentClick = event => {
+  const onModalCardContentClick = async event => {
     const idEl = event.currentTarget.querySelector('[data-id]');
     const getId = idEl.getAttribute('data-id');
 
@@ -159,6 +164,13 @@ export const queue = localStorageService.load('queue')
       target.addEventListener('click', onRemoveBtnClick);
       target.textContent = 'remove from watched';
       target.classList.remove('js-remove-watched');
+      if (refs.watchedBtnEl.classList.contains('is-active-btn')) {
+        refs.galleryEl.innerHTML = '';
+        const watchedMovies = localStorageService.load('watched');
+        const filmCardsWatched = await createFilmsMarkupByIds(watchedMovies);
+
+        refs.galleryEl.insertAdjacentHTML('afterbegin', filmCardsWatched);
+      }
 
       return;
     }
@@ -171,6 +183,19 @@ export const queue = localStorageService.load('queue')
       localStorage.setItem('watched', JSON.stringify(watched));
       target.textContent = 'add to watched';
       target.classList.add('js-remove-watched');
+      if (refs.watchedBtnEl.classList.contains('is-active-btn')) {
+        refs.galleryEl.innerHTML = '';
+        const watchedMovies = localStorageService.load('watched');
+        if (!watchedMovies || watchedMovies.length < 1) {
+          refs.qPagination.classList.add('visually-hidden');
+          refs.infoCard.classList.remove('visually-hidden');
+          refs.galleryEl.style.height = '600px';
+          return;
+        }
+        const filmCardsWatched = await createFilmsMarkupByIds(watchedMovies);
+
+        refs.galleryEl.insertAdjacentHTML('afterbegin', filmCardsWatched);
+      }
 
       return;
     }
@@ -183,6 +208,13 @@ export const queue = localStorageService.load('queue')
       localStorage.setItem('queue', JSON.stringify(queue));
       target.textContent = 'remove from queue';
       target.classList.remove('js-remove-queue');
+      if (refs.queueBtnEl.classList.contains('is-active-btn')) {
+        refs.galleryEl.innerHTML = '';
+        const queMovies = localStorageService.load('queue');
+        const filmCardsQue = await createFilmsMarkupByIds(queMovies);
+
+        refs.galleryEl.insertAdjacentHTML('afterbegin', filmCardsQue);
+      }
       return;
     }
 
@@ -194,6 +226,19 @@ export const queue = localStorageService.load('queue')
       localStorage.setItem('queue', JSON.stringify(queue));
       target.textContent = 'add to queue';
       target.classList.add('js-remove-queue');
+      if (refs.queueBtnEl.classList.contains('is-active-btn')) {
+        refs.galleryEl.innerHTML = '';
+        const queMovies = localStorageService.load('queue');
+        if (!queMovies || queMovies.length < 1) {
+          refs.qPagination.classList.add('visually-hidden');
+          refs.infoCard.classList.remove('visually-hidden');
+          refs.galleryEl.style.height = '600px';
+          return;
+        }
+        const filmCardsQue = await createFilmsMarkupByIds(queMovies);
+
+        refs.galleryEl.insertAdjacentHTML('afterbegin', filmCardsQue);
+      }
 
       return;
     }
