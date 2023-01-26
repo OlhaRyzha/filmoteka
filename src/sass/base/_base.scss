@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: var(--main-font);
   font-weight: 500;
@@ -79,6 +83,10 @@ body.dark-theme {
 
     & .footer__btn {
       color: var(--cards-txt-color);
+      transition: color 200ms;
+      &:hover {
+        color: var(--btn-bg-color);
+      }
     }
   }
 
@@ -99,14 +107,12 @@ body.dark-theme {
       color: var(--light-txt-color);
     }
   }
-  & .films-gallery{
+  & .films-gallery {
     position: relative;
     background-color: var(--bg-color);
   }
   & #pagination {
-
     & .tui-page-btn {
-
       transition: background-color 500ms;
       color: #fff;
 

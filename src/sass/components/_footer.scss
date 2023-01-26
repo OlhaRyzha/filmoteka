@@ -5,24 +5,23 @@
 //   transform: translateX(-50%);
 // }
 .footer {
-    background-color: var(--footer-bg-color);
+  background-color: var(--footer-bg-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  &__container {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    &__container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding-top: 30px;
-        padding-bottom: 30px;
-        scroll-behavior: smooth;
-        @media screen and (min-width: 1280px) {
-            padding-top: 23px;
-            padding-bottom: 35px;
-        }
+    padding-top: 30px;
+    padding-bottom: 30px;
+    scroll-behavior: smooth;
+    @media screen and (min-width: 1280px) {
+      padding-top: 23px;
+      padding-bottom: 35px;
     }
-  
+  }
 
   &__list {
     display: flex;
@@ -54,6 +53,19 @@
   &__icon {
     margin-left: 10px;
     margin-right: 10px;
+    animation: scaleHeart 1000ms linear infinite;
+  }
+
+  @keyframes scaleHeart {
+    0% {
+      scale: 1;
+    }
+    50% {
+      scale: 1.1;
+    }
+    100% {
+      scale: 1;
+    }
   }
 
   &__btn {
@@ -65,6 +77,12 @@
     line-height: 16px;
     color: var(--footer-txt-color);
     text-decoration: underline 1px;
+    cursor: pointer;
+    transition: color 200ms;
+
+    &:hover {
+      color: var(--btn-bg-color);
+    }
 
     @media screen and (min-width: 768px) {
       font-size: 16px;
@@ -158,50 +176,51 @@
 }
 
 .backdrop-footer {
-    position: fixed;
-    inset: 0;
-    display: flex;
-    padding: 20px;
-    overflow-y: auto;
-    background-color: rgba(128, 128, 128, 0.68);
+  position: fixed;
+  inset: 0;
+  display: flex;
+  padding: 20px;
+  overflow-y: auto;
+  background-color: rgba(128, 128, 128, 0.68);
 }
 .modal-footer {
-    z-index: 10;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 30px;
-    min-width: 250px;
-    background: #10181d;
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.2);
-    border-radius: 7px;
-    margin-bottom: 40px;
+  z-index: 10;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 30px;
+  min-width: 250px;
+  background: #10181d;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
+    0px 2px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 7px;
+  margin-bottom: 40px;
 
-    max-height: calc(100vh - 210px);
-    overflow-y: auto;
+  max-height: calc(100vh - 210px);
+  overflow-y: auto;
 
-    @media screen and (min-width: 1200px) {
-        overflow-y: none;
-        min-width: 450px;
-        min-height: 609px;
-        overflow-y: hidden;
-    }
+  @media screen and (min-width: 1200px) {
+    overflow-y: none;
+    min-width: 450px;
+    min-height: 609px;
+    overflow-y: hidden;
+  }
 }
 .modal-footer-close {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    top: 15px;
-    right: 15px;
-    background-color: transparent;
-    border: none;
-    fill: var(--light-txt-color);
-    padding: 10px;
-    cursor: pointer;
-    transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
-    &:hover {
-      fill: var(--current-link);
-    }
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 15px;
+  right: 15px;
+  background-color: transparent;
+  border: none;
+  fill: var(--light-txt-color);
+  padding: 10px;
+  cursor: pointer;
+  transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  &:hover {
+    fill: var(--current-link);
   }
+}

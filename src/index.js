@@ -12,6 +12,4 @@ import './js/localStorage';
 import './js/switch';
 import './js/card-info-show';
 import './js/animation';
-
-
-
+import './js/button-up';
