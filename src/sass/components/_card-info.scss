@@ -1,0 +1,271 @@
+.backdrop-card {
+  position: fixed;
+  overflow-y: scroll;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.2);
+
+  opacity: 1;
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.is-hidden {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.modal-card {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  z-index: 50;
+  transform: translate(-50%, -50%) scale(1);
+  width: 280px;
+  background-color: #fcfcfc;
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  position: absolute;
+  padding-top: 48px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 40px;
+
+  .backdrop-card.is-hidden & {
+    transform: translate(-50%, -50%) scale(0);
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 704px;
+    padding-top: 40px;
+    padding-left: 36px;
+    padding-right: 72px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    width: 806px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  @media screen and (max-height: 1000px) and (max-width: 768px) {
+    top: 53%;
+  }
+
+  @media screen and (max-height: 900px) and (max-width: 768px) {
+    top: 63%;
+  }
+
+  @media screen and (max-height: 765px) and (max-width: 768px) {
+    top: 73%;
+  }
+
+  @media screen and (max-height: 665px) and (max-width: 768px) {
+    top: 80%;
+  }
+
+  @media screen and (max-height: 580px) and (max-width: 768px) {
+    top: 90%;
+  }
+}
+
+.modal-card__close-btn {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.modal-card__close-btn-img {
+  width: 30px;
+  height: 30px;
+}
+
+.modal-card__content {
+  @media screen and (min-width: 768px) {
+    display: flex;
+    gap: 68px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    gap: 16px;
+  }
+}
+
+.modal-card__poster {
+  border-radius: 5px;
+  min-width: 240px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+
+  @media screen and (min-width: 768px) {
+    display: inline-flex;
+    min-width: 264px;
+    height: 373px;
+    margin-bottom: 0;
+    & img {
+      max-height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    display: inline-flex;
+    justify-content: center;
+    min-width: 375px;
+    height: 478px;
+  }
+}
+
+.modal-card__title {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 23px;
+
+  color: #000000;
+
+  @media screen and (min-width: 1024px) {
+    font-size: 30px;
+    line-height: 35px;
+  }
+}
+
+.modal-card__info-title-list {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.modal-card__info-title-items {
+  display: flex;
+  align-items: baseline;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #8c8c8c;
+  white-space: nowrap;
+
+  &:not(:last-child) {
+    margin-bottom: 8px;
+  }
+}
+
+.modal-card__info-title-items__vote {
+  gap: 41px;
+}
+
+.modal-card__info-title-vote {
+  display: flex;
+  & div {
+    background: #ff6b01;
+    border-radius: 5px;
+    width: 36px;
+    height: 16px;
+    margin-right: 2px;
+    text-align: center;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.modal-card__info-title-items__popularity {
+  gap: 53px;
+}
+
+.modal-card__info-title-items__original {
+  gap: 39px;
+}
+
+.modal-card__info-title-items__genre {
+  gap: 76px;
+}
+
+.modal-card__info-title-items p {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  color: #000000;
+  white-space: normal;
+}
+
+.modal-card__about-title {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  margin-bottom: 8px;
+
+  text-transform: uppercase;
+
+  color: #000000;
+}
+
+.modal-card__about-descr {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 20px;
+
+  color: #000000;
+}
+
+.modal-card__buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+
+  @media screen and (min-width: 1024px) {
+    justify-content: flex-start;
+    gap: 15px;
+    margin-left: 8px;
+  }
+}
+
+.modal-card__watch-btn,
+.modal-card__queue-btn {
+  width: 110px;
+  height: 44px;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  padding-left: 13px;
+  padding-right: 13px;
+  cursor: pointer;
+  border: 1px solid #000000;
+  background-color: #ffffff;
+  color: #000000;
+
+  text-transform: uppercase;
+
+  &:hover,
+  :focus {
+    background-color: #ff6b01;
+    border: none;
+    color: #ffffff;
+
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &:active {
+    background-color: #bb4f03;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 125px;
+    padding-left: 9px;
+    padding-right: 9px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    width: 136px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}

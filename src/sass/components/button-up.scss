@@ -1,0 +1,36 @@
+.btn-up {
+  position: fixed;
+  right: 30px;
+  bottom: 70px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 3px solid var(--btn-bg-color);
+  padding: 9px;
+  text-align: center;
+  color: var(--btn-bg-color);
+  font-size: 30px;
+  line-height: 0.4;
+  background-color: transparent;
+  opacity: 0;
+  transition: opacity 200ms;
+
+  &--shown {
+    opacity: 1;
+    cursor: pointer;
+    transition: opacity 200ms, scale 300ms, color 300ms, border 300ms;
+
+    &:hover,
+    &:focus {
+      scale: 1.05;
+      color: var(--current-link);
+      border: 3px solid var(--current-link);
+    }
+  }
+
+  & .icon-btn-up {
+    margin: auto;
+    width: 30px;
+    height: 30px;
+  }
+}

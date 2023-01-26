@@ -1,0 +1,124 @@
+<header class="header-section header-bg">
+
+  <div class="left-bgr"></div>
+  <div class="right-bgr"></div>
+   <div class="container animation" id="header">
+    <div id="particles-js"></div>
+    <div class="toolbar">
+      <div class="theme-switch">
+        <img
+          src="/src/images/light.svg"
+          class="theme-switch__icon"
+          alt="icon bright"
+        />
+
+        <div class="theme-switch__control">
+          <input
+            class="theme-switch__toggle"
+            type="checkbox"
+            name="theme"
+            id="theme-switch-toggle"
+            aria-label="switch"
+          />
+          <label
+            aria-hidden="true"
+            class="theme-switch__track"
+            for="theme-switch-toggle"
+          >
+          </label>
+          <div aria-hidden="true" class="theme-switch__marker"></div>
+        </div>
+        <img
+          src="/src/images/dark.svg"
+          class="theme-switch__icon"
+          alt="icon dark"
+        />
+      </div>
+    </div>
+
+    <nav class="navigation">
+      <h1 hidden>Filmoteka</h1>
+      <ul class="side-nav__list">
+        <li class="side-nav__item--logo">
+          <!-- <button type="button" class="navigation__logo" id="navigation-logo">
+                    <img src="./images/film.svg"
+                    class="logo__icon" width="24" height="24"/>
+                  <span class="logo__name">Filmoteka</span>
+                </button> -->
+
+          <a href="./index.html" class="navigation__logo" id="navigation-logo">
+            <img
+              src="/src/images/film.svg"
+              class="logo__icon"
+              width="24"
+              height="24"
+              alt="logo-img"
+            />
+            <span class="logo__name">Filmoteka</span>
+          </a>
+        </li>
+        <li class="side-nav__item">
+          <a href="./index.html" class="side-nav__link link-current"
+            ><span>HOME</span></a
+          >
+
+          <!-- <button
+                  type="button"
+                  class="side-nav__link link-current"
+                >
+                  HOME
+                </button> -->
+                
+              </li>
+              <li class="side-nav__item">
+                <a 
+                    href="/src/library.html" 
+                    class="side-nav__link library__js"><span>MY LIBRARY</span></a>
+              </li>
+            </ul>
+          </nav>
+      
+          <form class="search-form" id="home-page">
+            <input
+              type="text"
+              name="query"
+              placeholder="Movie search..."
+              class="search-field"
+            />
+            <button type="submit" class="search-btn">
+                <img src="./images/search.svg"
+                alt="search-icon"
+                class="search-icon" width="12" height="12"/>
+            </button>
+          </form>
+          <p class="warning is-hidden">
+            Search result not successful. Enter the correct movie name and
+          </p>
+         
+        </div>
+      </header>
+
+
+
+    <!-- <form class="search-form" id="home-page">
+      <input
+        type="text"
+        name="query"
+        placeholder="Movie search..."
+        class="search-field"
+      />
+      <button type="submit" class="search-btn">
+        <img
+          src="./images/search.svg"
+          alt="search-icon"
+          class="search-icon"
+          width="12"
+          height="12"
+        />
+      </button>
+    </form>
+    <p class="warning is-hidden">
+      Search result not successful. Enter the correct movie name and
+    </p> -->
+  </div>
+</header>
