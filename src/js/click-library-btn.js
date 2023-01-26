@@ -16,11 +16,13 @@ const main = document.querySelector('main');
 const watchedBtnEl = document.querySelector('.js-watched');
 const queueBtnEl = document.querySelector('.js-queue');
 const infoCard = document.querySelector('.info-card');
+const qPagination = document.querySelector('#q-pagination');
 const theMovieById = new ThemoviedbAPI();
 onLibraryBtnClick();
 
 export async function onLibraryBtnClick() {
   container.classList.remove('visually-hidden');
+  qPagination.classList.add('visually-hidden');
   showLoader();
   queueBtnEl.classList.remove('is-active-btn');
   watchedBtnEl.classList.add('is-active-btn');
@@ -35,10 +37,15 @@ export async function onLibraryBtnClick() {
     hideLoader();
     infoCard.classList.remove('visually-hidden');
     galleryEl.style.height = '438px';
+    
     return
   
   }
   hideLoader();
+  footer.style.position = 'fixed';
+    footer.style.bottom = '0';
+    footer.style.left = '50%';
+    footer.style.transform = 'translateX(-50%)';
   infoCard.classList.add('visually-hidden');
   galleryEl.style.height = 'fit-content';
   if (watchedMovies.length > 6) {
