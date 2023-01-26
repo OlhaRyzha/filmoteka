@@ -2,7 +2,7 @@
 
 import { ThemoviedbAPI } from './api';
 import { createCardInfo } from './card-info-library';
-import localStorageService from './localstorage.js';
+import localStorageService from './localStorage.js';
 import { showLoader, hideLoader } from './loaders';
 import { createFilmsMarkupByIds } from './click-library-btn';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
