@@ -112,6 +112,7 @@ body.dark-theme {
     background-color: var(--bg-color);
   }
   & #pagination {
+    background-color: var(--bg-color);
     & .tui-page-btn {
       transition: background-color 500ms;
       color: #fff;
@@ -142,8 +143,40 @@ body.dark-theme {
       }
     }
   }
-}
 
+  & #q-pagination{
+    background-color: var(--bg-color);
+    & .tui-page-btn {
+      transition: background-color 500ms;
+      color: #fff;
+
+      &.tui-last-child .tui-ico-ellip {
+        color: #fff;
+      }
+
+      &.tui-first {
+        background-color: var(--dark-bg-footer);
+      }
+
+      &.tui-prev {
+        background-color: var(--dark-bg-footer);
+      }
+
+      &.tui-next {
+        background-color: var(--dark-bg-footer);
+      }
+
+      &.tui-last {
+        background-color: var(--dark-bg-footer);
+      }
+
+      &.tui-is-disabled {
+        background-color: #333;
+        color: #8c8c8c;
+      }
+  }
+}
+}
 ul {
   list-style-type: none;
 }
