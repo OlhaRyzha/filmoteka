@@ -8,4 +8,4 @@ import './js/film-card';
 import './js/library-films-gallery';
 import './js/localStorage';
 import './js/switch';
-import './js/card-info-show';
+import './js/card-info-show-library';
