@@ -3,7 +3,7 @@ import 'notiflix/dist/notiflix-3.2.6.min.css';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { ThemoviedbAPI } from './api';
 import { createCardInfo } from './card-info';
-import localStorageService from './localstorage.js';
+import localStorageService from './localStorage.js';
 import { createCardById } from './library-create-card';
 import { showLoader, hideLoader } from './loaders';
 import { getPagination } from './pagination-ilibrary';
